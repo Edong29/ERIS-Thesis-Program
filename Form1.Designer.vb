@@ -64,8 +64,8 @@ Partial Class Form1
         Me.RoofDeckPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.GroundFloorPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.FileRecordedButton = New System.Windows.Forms.Button()
         Me.FileCountLabel = New System.Windows.Forms.Label()
-        Me.FileRecordedPictureBox = New System.Windows.Forms.PictureBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.StatusTextBox = New System.Windows.Forms.TextBox()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
@@ -85,17 +85,11 @@ Partial Class Form1
         Me.Label19 = New System.Windows.Forms.Label()
         Me.XDisplacementPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.PlotView6 = New OxyPlot.WindowsForms.PlotView()
-        Me.XDisplacementDGV = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
         Me.XVelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.XVelocityPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.PlotView4 = New OxyPlot.WindowsForms.PlotView()
-        Me.XVelocityDGV = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
         Me.XAccelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.XAccelerationPlotView = New OxyPlot.WindowsForms.PlotView()
@@ -169,6 +163,12 @@ Partial Class Form1
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.XVelocityDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.XDisplacementDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -181,7 +181,6 @@ Partial Class Form1
         Me.TabControl2.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
-        CType(Me.FileRecordedPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TabPage3.SuspendLayout()
@@ -190,9 +189,7 @@ Partial Class Form1
         Me.ZAccelerationChart.SuspendLayout()
         Me.TabPage5.SuspendLayout()
         Me.GroupBox15.SuspendLayout()
-        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox14.SuspendLayout()
-        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox13.SuspendLayout()
         CType(Me.XAccelerationDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage6.SuspendLayout()
@@ -213,6 +210,8 @@ Partial Class Form1
         Me.GroupBox12.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -220,7 +219,7 @@ Partial Class Form1
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Indigo
-        Me.Label1.Location = New System.Drawing.Point(127, 27)
+        Me.Label1.Location = New System.Drawing.Point(100, 13)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(238, 55)
@@ -232,7 +231,7 @@ Partial Class Form1
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(133, 84)
+        Me.Label2.Location = New System.Drawing.Point(106, 70)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(325, 16)
@@ -248,11 +247,11 @@ Partial Class Form1
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(16, 142)
+        Me.TabControl1.Location = New System.Drawing.Point(16, 96)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1603, 696)
+        Me.TabControl1.Size = New System.Drawing.Size(1603, 742)
         Me.TabControl1.TabIndex = 4
         '
         'TabPage1
@@ -267,7 +266,7 @@ Partial Class Form1
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage1.Size = New System.Drawing.Size(1595, 668)
+        Me.TabPage1.Size = New System.Drawing.Size(1595, 714)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "(1) Initialization"
         '
@@ -280,7 +279,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Location = New System.Drawing.Point(827, 7)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(765, 514)
+        Me.Panel1.Size = New System.Drawing.Size(765, 560)
         Me.Panel1.TabIndex = 12
         '
         'GroupBox7
@@ -390,7 +389,7 @@ Partial Class Form1
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(742, 258)
+        Me.GroupBox2.Size = New System.Drawing.Size(742, 304)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "File Save Directory"
@@ -437,7 +436,7 @@ Partial Class Form1
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Malgun Gothic Semilight", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(21, 616)
+        Me.Label10.Location = New System.Drawing.Point(21, 662)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(449, 13)
@@ -450,7 +449,7 @@ Partial Class Form1
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Malgun Gothic", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(19, 525)
+        Me.Label15.Location = New System.Drawing.Point(19, 571)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(305, 13)
@@ -462,7 +461,7 @@ Partial Class Form1
         Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Malgun Gothic Semilight", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(19, 643)
+        Me.Label9.Location = New System.Drawing.Point(19, 689)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(259, 13)
@@ -490,7 +489,7 @@ Partial Class Form1
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(804, 514)
+        Me.GroupBox1.Size = New System.Drawing.Size(804, 560)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Sensor Initialization"
@@ -500,7 +499,7 @@ Partial Class Form1
         Me.ConnectButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ConnectButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.ConnectButton.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ConnectButton.Location = New System.Drawing.Point(635, 418)
+        Me.ConnectButton.Location = New System.Drawing.Point(635, 464)
         Me.ConnectButton.Margin = New System.Windows.Forms.Padding(4)
         Me.ConnectButton.Name = "ConnectButton"
         Me.ConnectButton.Size = New System.Drawing.Size(116, 47)
@@ -579,7 +578,7 @@ Partial Class Form1
         Me.RefreshButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RefreshButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.RefreshButton.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RefreshButton.Location = New System.Drawing.Point(511, 418)
+        Me.RefreshButton.Location = New System.Drawing.Point(511, 464)
         Me.RefreshButton.Margin = New System.Windows.Forms.Padding(4)
         Me.RefreshButton.Name = "RefreshButton"
         Me.RefreshButton.Size = New System.Drawing.Size(116, 47)
@@ -635,7 +634,7 @@ Partial Class Form1
         Me.TabPage2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage2.Size = New System.Drawing.Size(1595, 668)
+        Me.TabPage2.Size = New System.Drawing.Size(1595, 714)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "(2) Reading & Recording"
         '
@@ -678,7 +677,7 @@ Partial Class Form1
         Me.TabControl2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(1360, 624)
+        Me.TabControl2.Size = New System.Drawing.Size(1360, 670)
         Me.TabControl2.TabIndex = 9
         '
         'TabPage4
@@ -691,7 +690,7 @@ Partial Class Form1
         Me.TabPage4.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage4.Size = New System.Drawing.Size(1352, 596)
+        Me.TabPage4.Size = New System.Drawing.Size(1352, 642)
         Me.TabPage4.TabIndex = 1
         Me.TabPage4.Text = "Real-Time Motion Data Graphs"
         '
@@ -699,10 +698,10 @@ Partial Class Form1
         '
         Me.MidHeightPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MidHeightPlotView.Location = New System.Drawing.Point(7, 193)
+        Me.MidHeightPlotView.Location = New System.Drawing.Point(7, 218)
         Me.MidHeightPlotView.Name = "MidHeightPlotView"
         Me.MidHeightPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.MidHeightPlotView.Size = New System.Drawing.Size(1338, 180)
+        Me.MidHeightPlotView.Size = New System.Drawing.Size(1338, 205)
         Me.MidHeightPlotView.TabIndex = 6
         Me.MidHeightPlotView.Text = "PlotView1"
         Me.MidHeightPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -716,7 +715,7 @@ Partial Class Form1
         Me.RoofDeckPlotView.Location = New System.Drawing.Point(7, 7)
         Me.RoofDeckPlotView.Name = "RoofDeckPlotView"
         Me.RoofDeckPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.RoofDeckPlotView.Size = New System.Drawing.Size(1338, 180)
+        Me.RoofDeckPlotView.Size = New System.Drawing.Size(1338, 205)
         Me.RoofDeckPlotView.TabIndex = 7
         Me.RoofDeckPlotView.Text = "PlotView1"
         Me.RoofDeckPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -727,10 +726,10 @@ Partial Class Form1
         '
         Me.GroundFloorPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroundFloorPlotView.Location = New System.Drawing.Point(7, 379)
+        Me.GroundFloorPlotView.Location = New System.Drawing.Point(7, 429)
         Me.GroundFloorPlotView.Name = "GroundFloorPlotView"
         Me.GroundFloorPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.GroundFloorPlotView.Size = New System.Drawing.Size(1338, 180)
+        Me.GroundFloorPlotView.Size = New System.Drawing.Size(1338, 205)
         Me.GroundFloorPlotView.TabIndex = 5
         Me.GroundFloorPlotView.Text = "PlotView1"
         Me.GroundFloorPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -740,8 +739,8 @@ Partial Class Form1
         'GroupBox5
         '
         Me.GroupBox5.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox5.Controls.Add(Me.FileRecordedButton)
         Me.GroupBox5.Controls.Add(Me.FileCountLabel)
-        Me.GroupBox5.Controls.Add(Me.FileRecordedPictureBox)
         Me.GroupBox5.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(19, 329)
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
@@ -752,6 +751,17 @@ Partial Class Form1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Files Recorded"
         '
+        'FileRecordedButton
+        '
+        Me.FileRecordedButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.FileRecordedButton.BackgroundImage = Global.ERIS_Thesis_Program.My.Resources.Resources._3735156
+        Me.FileRecordedButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.FileRecordedButton.Location = New System.Drawing.Point(16, 33)
+        Me.FileRecordedButton.Name = "FileRecordedButton"
+        Me.FileRecordedButton.Size = New System.Drawing.Size(50, 54)
+        Me.FileRecordedButton.TabIndex = 5
+        Me.FileRecordedButton.UseVisualStyleBackColor = False
+        '
         'FileCountLabel
         '
         Me.FileCountLabel.AutoSize = True
@@ -761,19 +771,6 @@ Partial Class Form1
         Me.FileCountLabel.Size = New System.Drawing.Size(44, 51)
         Me.FileCountLabel.TabIndex = 4
         Me.FileCountLabel.Text = "0"
-        '
-        'FileRecordedPictureBox
-        '
-        Me.FileRecordedPictureBox.BackColor = System.Drawing.Color.Transparent
-        Me.FileRecordedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.FileRecordedPictureBox.Image = Global.ERIS_Thesis_Program.My.Resources.Resources._3735156
-        Me.FileRecordedPictureBox.Location = New System.Drawing.Point(16, 33)
-        Me.FileRecordedPictureBox.Margin = New System.Windows.Forms.Padding(4)
-        Me.FileRecordedPictureBox.Name = "FileRecordedPictureBox"
-        Me.FileRecordedPictureBox.Size = New System.Drawing.Size(50, 54)
-        Me.FileRecordedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.FileRecordedPictureBox.TabIndex = 3
-        Me.FileRecordedPictureBox.TabStop = False
         '
         'GroupBox4
         '
@@ -871,7 +868,7 @@ Partial Class Form1
         Me.TabPage3.Location = New System.Drawing.Point(4, 24)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(1595, 668)
+        Me.TabPage3.Size = New System.Drawing.Size(1595, 714)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "(3) Data Conversion"
         '
@@ -924,7 +921,7 @@ Partial Class Form1
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox6.Size = New System.Drawing.Size(1348, 643)
+        Me.GroupBox6.Size = New System.Drawing.Size(1348, 689)
         Me.GroupBox6.TabIndex = 22
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Time Series"
@@ -941,7 +938,7 @@ Partial Class Form1
         Me.ZAccelerationChart.Location = New System.Drawing.Point(7, 29)
         Me.ZAccelerationChart.Name = "ZAccelerationChart"
         Me.ZAccelerationChart.SelectedIndex = 0
-        Me.ZAccelerationChart.Size = New System.Drawing.Size(1334, 607)
+        Me.ZAccelerationChart.Size = New System.Drawing.Size(1334, 653)
         Me.ZAccelerationChart.TabIndex = 11
         '
         'TabPage5
@@ -953,7 +950,7 @@ Partial Class Form1
         Me.TabPage5.Location = New System.Drawing.Point(4, 26)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(1326, 577)
+        Me.TabPage5.Size = New System.Drawing.Size(1326, 623)
         Me.TabPage5.TabIndex = 0
         Me.TabPage5.Text = "X"
         '
@@ -961,31 +958,31 @@ Partial Class Form1
         '
         Me.GroupBox15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox15.Controls.Add(Me.XDisplacementDGV)
         Me.GroupBox15.Controls.Add(Me.XDispMaxTextBox)
         Me.GroupBox15.Controls.Add(Me.Label19)
         Me.GroupBox15.Controls.Add(Me.XDisplacementPlotView)
         Me.GroupBox15.Controls.Add(Me.PlotView6)
-        Me.GroupBox15.Controls.Add(Me.XDisplacementDGV)
-        Me.GroupBox15.Location = New System.Drawing.Point(6, 391)
+        Me.GroupBox15.Location = New System.Drawing.Point(6, 415)
         Me.GroupBox15.Name = "GroupBox15"
-        Me.GroupBox15.Size = New System.Drawing.Size(1314, 183)
+        Me.GroupBox15.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox15.TabIndex = 2
         Me.GroupBox15.TabStop = False
         Me.GroupBox15.Text = "Displacement"
         '
         'XDispMaxTextBox
         '
-        Me.XDispMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.XDispMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.XDispMaxTextBox.Name = "XDispMaxTextBox"
         Me.XDispMaxTextBox.ReadOnly = True
-        Me.XDispMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.XDispMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.XDispMaxTextBox.TabIndex = 37
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(1, 156)
+        Me.Label19.Location = New System.Drawing.Point(1, 179)
         Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(84, 15)
@@ -997,10 +994,10 @@ Partial Class Form1
         '
         Me.XDisplacementPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.XDisplacementPlotView.Location = New System.Drawing.Point(265, 13)
+        Me.XDisplacementPlotView.Location = New System.Drawing.Point(287, 24)
         Me.XDisplacementPlotView.Name = "XDisplacementPlotView"
         Me.XDisplacementPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.XDisplacementPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.XDisplacementPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.XDisplacementPlotView.TabIndex = 34
         Me.XDisplacementPlotView.Text = "PlotView1"
         Me.XDisplacementPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1021,63 +1018,35 @@ Partial Class Form1
         Me.PlotView6.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
         Me.PlotView6.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
         '
-        'XDisplacementDGV
-        '
-        Me.XDisplacementDGV.AllowUserToAddRows = False
-        Me.XDisplacementDGV.AllowUserToDeleteRows = False
-        Me.XDisplacementDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.XDisplacementDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4})
-        Me.XDisplacementDGV.Location = New System.Drawing.Point(6, 24)
-        Me.XDisplacementDGV.Name = "XDisplacementDGV"
-        Me.XDisplacementDGV.ReadOnly = True
-        Me.XDisplacementDGV.Size = New System.Drawing.Size(253, 126)
-        Me.XDisplacementDGV.TabIndex = 30
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn3.Width = 90
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Disp [m]"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
         'GroupBox14
         '
         Me.GroupBox14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox14.Controls.Add(Me.XVelocityDGV)
         Me.GroupBox14.Controls.Add(Me.XVelMaxTextBox)
         Me.GroupBox14.Controls.Add(Me.Label5)
         Me.GroupBox14.Controls.Add(Me.XVelocityPlotView)
         Me.GroupBox14.Controls.Add(Me.PlotView4)
-        Me.GroupBox14.Controls.Add(Me.XVelocityDGV)
-        Me.GroupBox14.Location = New System.Drawing.Point(6, 195)
+        Me.GroupBox14.Location = New System.Drawing.Point(6, 209)
         Me.GroupBox14.Name = "GroupBox14"
-        Me.GroupBox14.Size = New System.Drawing.Size(1314, 190)
+        Me.GroupBox14.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox14.TabIndex = 1
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Velocity"
         '
         'XVelMaxTextBox
         '
-        Me.XVelMaxTextBox.Location = New System.Drawing.Point(83, 153)
+        Me.XVelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.XVelMaxTextBox.Name = "XVelMaxTextBox"
         Me.XVelMaxTextBox.ReadOnly = True
-        Me.XVelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.XVelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.XVelMaxTextBox.TabIndex = 37
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(1, 157)
+        Me.Label5.Location = New System.Drawing.Point(1, 179)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(84, 15)
@@ -1089,10 +1058,10 @@ Partial Class Form1
         '
         Me.XVelocityPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.XVelocityPlotView.Location = New System.Drawing.Point(265, 14)
+        Me.XVelocityPlotView.Location = New System.Drawing.Point(287, 24)
         Me.XVelocityPlotView.Name = "XVelocityPlotView"
         Me.XVelocityPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.XVelocityPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.XVelocityPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.XVelocityPlotView.TabIndex = 34
         Me.XVelocityPlotView.Text = "PlotView1"
         Me.XVelocityPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1113,34 +1082,6 @@ Partial Class Form1
         Me.PlotView4.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE
         Me.PlotView4.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS
         '
-        'XVelocityDGV
-        '
-        Me.XVelocityDGV.AllowUserToAddRows = False
-        Me.XVelocityDGV.AllowUserToDeleteRows = False
-        Me.XVelocityDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.XVelocityDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
-        Me.XVelocityDGV.Location = New System.Drawing.Point(6, 24)
-        Me.XVelocityDGV.Name = "XVelocityDGV"
-        Me.XVelocityDGV.ReadOnly = True
-        Me.XVelocityDGV.Size = New System.Drawing.Size(253, 126)
-        Me.XVelocityDGV.TabIndex = 30
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn1.Width = 90
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Vel [m/s]"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
         'GroupBox13
         '
         Me.GroupBox13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1151,27 +1092,27 @@ Partial Class Form1
         Me.GroupBox13.Controls.Add(Me.XAccelerationDGV)
         Me.GroupBox13.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox13.Name = "GroupBox13"
-        Me.GroupBox13.Size = New System.Drawing.Size(1311, 189)
+        Me.GroupBox13.Size = New System.Drawing.Size(1311, 200)
         Me.GroupBox13.TabIndex = 0
         Me.GroupBox13.TabStop = False
         Me.GroupBox13.Text = "Acceleration"
         '
         'XAccelMaxTextBox
         '
-        Me.XAccelMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.XAccelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.XAccelMaxTextBox.Name = "XAccelMaxTextBox"
         Me.XAccelMaxTextBox.ReadOnly = True
-        Me.XAccelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.XAccelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.XAccelMaxTextBox.TabIndex = 30
         '
         'XAccelerationPlotView
         '
         Me.XAccelerationPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.XAccelerationPlotView.Location = New System.Drawing.Point(265, 16)
+        Me.XAccelerationPlotView.Location = New System.Drawing.Point(287, 24)
         Me.XAccelerationPlotView.Name = "XAccelerationPlotView"
         Me.XAccelerationPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.XAccelerationPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.XAccelerationPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.XAccelerationPlotView.TabIndex = 29
         Me.XAccelerationPlotView.Text = "PlotView1"
         Me.XAccelerationPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1182,7 +1123,7 @@ Partial Class Form1
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(1, 156)
+        Me.Label14.Location = New System.Drawing.Point(1, 179)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(84, 15)
@@ -1199,7 +1140,7 @@ Partial Class Form1
         Me.XAccelerationDGV.Location = New System.Drawing.Point(6, 24)
         Me.XAccelerationDGV.Name = "XAccelerationDGV"
         Me.XAccelerationDGV.ReadOnly = True
-        Me.XAccelerationDGV.Size = New System.Drawing.Size(253, 126)
+        Me.XAccelerationDGV.Size = New System.Drawing.Size(275, 139)
         Me.XAccelerationDGV.TabIndex = 26
         '
         'Time
@@ -1227,7 +1168,7 @@ Partial Class Form1
         Me.TabPage6.Location = New System.Drawing.Point(4, 26)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(1326, 577)
+        Me.TabPage6.Size = New System.Drawing.Size(1326, 623)
         Me.TabPage6.TabIndex = 1
         Me.TabPage6.Text = "Y"
         '
@@ -1239,26 +1180,26 @@ Partial Class Form1
         Me.GroupBox16.Controls.Add(Me.Label24)
         Me.GroupBox16.Controls.Add(Me.YDisplacementPlotView)
         Me.GroupBox16.Controls.Add(Me.YDisplacementDGV)
-        Me.GroupBox16.Location = New System.Drawing.Point(6, 391)
+        Me.GroupBox16.Location = New System.Drawing.Point(6, 415)
         Me.GroupBox16.Name = "GroupBox16"
-        Me.GroupBox16.Size = New System.Drawing.Size(1314, 183)
+        Me.GroupBox16.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox16.TabIndex = 5
         Me.GroupBox16.TabStop = False
         Me.GroupBox16.Text = "Displacement"
         '
         'YDispMaxTextBox
         '
-        Me.YDispMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.YDispMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.YDispMaxTextBox.Name = "YDispMaxTextBox"
         Me.YDispMaxTextBox.ReadOnly = True
-        Me.YDispMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.YDispMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.YDispMaxTextBox.TabIndex = 35
         '
         'Label24
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(1, 156)
+        Me.Label24.Location = New System.Drawing.Point(1, 179)
         Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(84, 15)
@@ -1270,10 +1211,10 @@ Partial Class Form1
         '
         Me.YDisplacementPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.YDisplacementPlotView.Location = New System.Drawing.Point(265, 13)
+        Me.YDisplacementPlotView.Location = New System.Drawing.Point(287, 24)
         Me.YDisplacementPlotView.Name = "YDisplacementPlotView"
         Me.YDisplacementPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.YDisplacementPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.YDisplacementPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.YDisplacementPlotView.TabIndex = 33
         Me.YDisplacementPlotView.Text = "PlotView1"
         Me.YDisplacementPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1282,13 +1223,14 @@ Partial Class Form1
         '
         'YDisplacementDGV
         '
+        Me.YDisplacementDGV.AllowUserToAddRows = False
         Me.YDisplacementDGV.AllowUserToDeleteRows = False
         Me.YDisplacementDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.YDisplacementDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
         Me.YDisplacementDGV.Location = New System.Drawing.Point(6, 24)
         Me.YDisplacementDGV.Name = "YDisplacementDGV"
         Me.YDisplacementDGV.ReadOnly = True
-        Me.YDisplacementDGV.Size = New System.Drawing.Size(253, 126)
+        Me.YDisplacementDGV.Size = New System.Drawing.Size(275, 139)
         Me.YDisplacementDGV.TabIndex = 30
         '
         'DataGridViewTextBoxColumn5
@@ -1315,26 +1257,26 @@ Partial Class Form1
         Me.GroupBox17.Controls.Add(Me.Label23)
         Me.GroupBox17.Controls.Add(Me.YVelocityPlotView)
         Me.GroupBox17.Controls.Add(Me.YVelocityDGV)
-        Me.GroupBox17.Location = New System.Drawing.Point(6, 195)
+        Me.GroupBox17.Location = New System.Drawing.Point(6, 209)
         Me.GroupBox17.Name = "GroupBox17"
-        Me.GroupBox17.Size = New System.Drawing.Size(1314, 190)
+        Me.GroupBox17.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox17.TabIndex = 4
         Me.GroupBox17.TabStop = False
         Me.GroupBox17.Text = "Velocity"
         '
         'YVelMaxTextBox
         '
-        Me.YVelMaxTextBox.Location = New System.Drawing.Point(83, 153)
+        Me.YVelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.YVelMaxTextBox.Name = "YVelMaxTextBox"
         Me.YVelMaxTextBox.ReadOnly = True
-        Me.YVelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.YVelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.YVelMaxTextBox.TabIndex = 35
         '
         'Label23
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(1, 157)
+        Me.Label23.Location = New System.Drawing.Point(1, 179)
         Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(84, 15)
@@ -1346,10 +1288,10 @@ Partial Class Form1
         '
         Me.YVelocityPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.YVelocityPlotView.Location = New System.Drawing.Point(265, 14)
+        Me.YVelocityPlotView.Location = New System.Drawing.Point(287, 24)
         Me.YVelocityPlotView.Name = "YVelocityPlotView"
         Me.YVelocityPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.YVelocityPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.YVelocityPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.YVelocityPlotView.TabIndex = 33
         Me.YVelocityPlotView.Text = "PlotView1"
         Me.YVelocityPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1365,7 +1307,7 @@ Partial Class Form1
         Me.YVelocityDGV.Location = New System.Drawing.Point(6, 24)
         Me.YVelocityDGV.Name = "YVelocityDGV"
         Me.YVelocityDGV.ReadOnly = True
-        Me.YVelocityDGV.Size = New System.Drawing.Size(253, 126)
+        Me.YVelocityDGV.Size = New System.Drawing.Size(275, 139)
         Me.YVelocityDGV.TabIndex = 30
         '
         'DataGridViewTextBoxColumn7
@@ -1394,24 +1336,24 @@ Partial Class Form1
         Me.GroupBox18.Controls.Add(Me.YAccelerationDGV)
         Me.GroupBox18.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox18.Name = "GroupBox18"
-        Me.GroupBox18.Size = New System.Drawing.Size(1311, 189)
+        Me.GroupBox18.Size = New System.Drawing.Size(1311, 200)
         Me.GroupBox18.TabIndex = 3
         Me.GroupBox18.TabStop = False
         Me.GroupBox18.Text = "Acceleration"
         '
         'YAccelMaxTextBox
         '
-        Me.YAccelMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.YAccelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.YAccelMaxTextBox.Name = "YAccelMaxTextBox"
         Me.YAccelMaxTextBox.ReadOnly = True
-        Me.YAccelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.YAccelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.YAccelMaxTextBox.TabIndex = 32
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(1, 156)
+        Me.Label20.Location = New System.Drawing.Point(1, 179)
         Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(84, 15)
@@ -1423,10 +1365,10 @@ Partial Class Form1
         '
         Me.YAccelerationPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.YAccelerationPlotView.Location = New System.Drawing.Point(265, 16)
+        Me.YAccelerationPlotView.Location = New System.Drawing.Point(287, 24)
         Me.YAccelerationPlotView.Name = "YAccelerationPlotView"
         Me.YAccelerationPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.YAccelerationPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.YAccelerationPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.YAccelerationPlotView.TabIndex = 30
         Me.YAccelerationPlotView.Text = "PlotView1"
         Me.YAccelerationPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1442,7 +1384,7 @@ Partial Class Form1
         Me.YAccelerationDGV.Location = New System.Drawing.Point(6, 24)
         Me.YAccelerationDGV.Name = "YAccelerationDGV"
         Me.YAccelerationDGV.ReadOnly = True
-        Me.YAccelerationDGV.Size = New System.Drawing.Size(253, 126)
+        Me.YAccelerationDGV.Size = New System.Drawing.Size(275, 139)
         Me.YAccelerationDGV.TabIndex = 26
         '
         'DataGridViewTextBoxColumn9
@@ -1470,7 +1412,7 @@ Partial Class Form1
         Me.TabPage7.Location = New System.Drawing.Point(4, 26)
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage7.Size = New System.Drawing.Size(1326, 577)
+        Me.TabPage7.Size = New System.Drawing.Size(1326, 623)
         Me.TabPage7.TabIndex = 2
         Me.TabPage7.Text = "Z"
         '
@@ -1482,26 +1424,26 @@ Partial Class Form1
         Me.GroupBox19.Controls.Add(Me.Label27)
         Me.GroupBox19.Controls.Add(Me.ZDisplacementPlotView)
         Me.GroupBox19.Controls.Add(Me.ZDisplacementDGV)
-        Me.GroupBox19.Location = New System.Drawing.Point(6, 391)
+        Me.GroupBox19.Location = New System.Drawing.Point(6, 415)
         Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(1314, 183)
+        Me.GroupBox19.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox19.TabIndex = 5
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "Displacement"
         '
         'ZDispMaxTextBox
         '
-        Me.ZDispMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.ZDispMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.ZDispMaxTextBox.Name = "ZDispMaxTextBox"
         Me.ZDispMaxTextBox.ReadOnly = True
-        Me.ZDispMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.ZDispMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.ZDispMaxTextBox.TabIndex = 35
         '
         'Label27
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(1, 156)
+        Me.Label27.Location = New System.Drawing.Point(1, 179)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(84, 15)
@@ -1513,10 +1455,10 @@ Partial Class Form1
         '
         Me.ZDisplacementPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ZDisplacementPlotView.Location = New System.Drawing.Point(265, 13)
+        Me.ZDisplacementPlotView.Location = New System.Drawing.Point(287, 24)
         Me.ZDisplacementPlotView.Name = "ZDisplacementPlotView"
         Me.ZDisplacementPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.ZDisplacementPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.ZDisplacementPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.ZDisplacementPlotView.TabIndex = 33
         Me.ZDisplacementPlotView.Text = "PlotView1"
         Me.ZDisplacementPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1532,7 +1474,7 @@ Partial Class Form1
         Me.ZDisplacementDGV.Location = New System.Drawing.Point(6, 24)
         Me.ZDisplacementDGV.Name = "ZDisplacementDGV"
         Me.ZDisplacementDGV.ReadOnly = True
-        Me.ZDisplacementDGV.Size = New System.Drawing.Size(253, 126)
+        Me.ZDisplacementDGV.Size = New System.Drawing.Size(275, 139)
         Me.ZDisplacementDGV.TabIndex = 30
         '
         'DataGridViewTextBoxColumn11
@@ -1559,26 +1501,26 @@ Partial Class Form1
         Me.GroupBox20.Controls.Add(Me.Label26)
         Me.GroupBox20.Controls.Add(Me.ZVelocityPlotView)
         Me.GroupBox20.Controls.Add(Me.ZVelocityDGV)
-        Me.GroupBox20.Location = New System.Drawing.Point(6, 195)
+        Me.GroupBox20.Location = New System.Drawing.Point(6, 209)
         Me.GroupBox20.Name = "GroupBox20"
-        Me.GroupBox20.Size = New System.Drawing.Size(1314, 190)
+        Me.GroupBox20.Size = New System.Drawing.Size(1314, 200)
         Me.GroupBox20.TabIndex = 4
         Me.GroupBox20.TabStop = False
         Me.GroupBox20.Text = "Velocity"
         '
         'ZVelMaxTextBox
         '
-        Me.ZVelMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.ZVelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.ZVelMaxTextBox.Name = "ZVelMaxTextBox"
         Me.ZVelMaxTextBox.ReadOnly = True
-        Me.ZVelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.ZVelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.ZVelMaxTextBox.TabIndex = 35
         '
         'Label26
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(1, 156)
+        Me.Label26.Location = New System.Drawing.Point(1, 179)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(84, 15)
@@ -1590,10 +1532,10 @@ Partial Class Form1
         '
         Me.ZVelocityPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ZVelocityPlotView.Location = New System.Drawing.Point(265, 14)
+        Me.ZVelocityPlotView.Location = New System.Drawing.Point(287, 24)
         Me.ZVelocityPlotView.Name = "ZVelocityPlotView"
         Me.ZVelocityPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.ZVelocityPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.ZVelocityPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.ZVelocityPlotView.TabIndex = 33
         Me.ZVelocityPlotView.Text = "PlotView1"
         Me.ZVelocityPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1609,7 +1551,7 @@ Partial Class Form1
         Me.ZVelocityDGV.Location = New System.Drawing.Point(6, 24)
         Me.ZVelocityDGV.Name = "ZVelocityDGV"
         Me.ZVelocityDGV.ReadOnly = True
-        Me.ZVelocityDGV.Size = New System.Drawing.Size(253, 126)
+        Me.ZVelocityDGV.Size = New System.Drawing.Size(275, 139)
         Me.ZVelocityDGV.TabIndex = 30
         '
         'DataGridViewTextBoxColumn13
@@ -1638,24 +1580,24 @@ Partial Class Form1
         Me.GroupBox21.Controls.Add(Me.ZAccelerationDGV)
         Me.GroupBox21.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox21.Name = "GroupBox21"
-        Me.GroupBox21.Size = New System.Drawing.Size(1311, 189)
+        Me.GroupBox21.Size = New System.Drawing.Size(1311, 200)
         Me.GroupBox21.TabIndex = 3
         Me.GroupBox21.TabStop = False
         Me.GroupBox21.Text = "Acceleration"
         '
         'ZAccelMaxTextBox
         '
-        Me.ZAccelMaxTextBox.Location = New System.Drawing.Point(83, 152)
+        Me.ZAccelMaxTextBox.Location = New System.Drawing.Point(83, 169)
         Me.ZAccelMaxTextBox.Name = "ZAccelMaxTextBox"
         Me.ZAccelMaxTextBox.ReadOnly = True
-        Me.ZAccelMaxTextBox.Size = New System.Drawing.Size(176, 25)
+        Me.ZAccelMaxTextBox.Size = New System.Drawing.Size(198, 25)
         Me.ZAccelMaxTextBox.TabIndex = 32
         '
         'Label25
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(1, 156)
+        Me.Label25.Location = New System.Drawing.Point(1, 179)
         Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(84, 15)
@@ -1667,10 +1609,10 @@ Partial Class Form1
         '
         Me.ZAccelerationPlotView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ZAccelerationPlotView.Location = New System.Drawing.Point(265, 13)
+        Me.ZAccelerationPlotView.Location = New System.Drawing.Point(287, 24)
         Me.ZAccelerationPlotView.Name = "ZAccelerationPlotView"
         Me.ZAccelerationPlotView.PanCursor = System.Windows.Forms.Cursors.Hand
-        Me.ZAccelerationPlotView.Size = New System.Drawing.Size(1040, 170)
+        Me.ZAccelerationPlotView.Size = New System.Drawing.Size(1018, 170)
         Me.ZAccelerationPlotView.TabIndex = 30
         Me.ZAccelerationPlotView.Text = "PlotView1"
         Me.ZAccelerationPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE
@@ -1686,7 +1628,7 @@ Partial Class Form1
         Me.ZAccelerationDGV.Location = New System.Drawing.Point(6, 24)
         Me.ZAccelerationDGV.Name = "ZAccelerationDGV"
         Me.ZAccelerationDGV.ReadOnly = True
-        Me.ZAccelerationDGV.Size = New System.Drawing.Size(253, 126)
+        Me.ZAccelerationDGV.Size = New System.Drawing.Size(275, 139)
         Me.ZAccelerationDGV.TabIndex = 26
         '
         'DataGridViewTextBoxColumn15
@@ -1904,13 +1846,69 @@ Partial Class Form1
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Image = Global.ERIS_Thesis_Program.My.Resources.Resources._448860225_505483518581460_7786233697137416372_n
-        Me.PictureBox1.Location = New System.Drawing.Point(40, 27)
+        Me.PictureBox1.Location = New System.Drawing.Point(13, 13)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(79, 75)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
+        '
+        'XVelocityDGV
+        '
+        Me.XVelocityDGV.AllowUserToAddRows = False
+        Me.XVelocityDGV.AllowUserToDeleteRows = False
+        Me.XVelocityDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.XVelocityDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18})
+        Me.XVelocityDGV.Location = New System.Drawing.Point(6, 24)
+        Me.XVelocityDGV.Name = "XVelocityDGV"
+        Me.XVelocityDGV.ReadOnly = True
+        Me.XVelocityDGV.Size = New System.Drawing.Size(275, 139)
+        Me.XVelocityDGV.TabIndex = 38
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn17.Width = 90
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Vel [m/s]"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        Me.DataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
+        'XDisplacementDGV
+        '
+        Me.XDisplacementDGV.AllowUserToAddRows = False
+        Me.XDisplacementDGV.AllowUserToDeleteRows = False
+        Me.XDisplacementDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.XDisplacementDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
+        Me.XDisplacementDGV.Location = New System.Drawing.Point(6, 24)
+        Me.XDisplacementDGV.Name = "XDisplacementDGV"
+        Me.XDisplacementDGV.ReadOnly = True
+        Me.XDisplacementDGV.Size = New System.Drawing.Size(275, 139)
+        Me.XDisplacementDGV.TabIndex = 39
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn1.Width = 90
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Disp [m]"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'Form1
         '
@@ -1942,7 +1940,6 @@ Partial Class Form1
         Me.TabPage4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        CType(Me.FileRecordedPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
@@ -1954,10 +1951,8 @@ Partial Class Form1
         Me.TabPage5.ResumeLayout(False)
         Me.GroupBox15.ResumeLayout(False)
         Me.GroupBox15.PerformLayout()
-        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox14.ResumeLayout(False)
         Me.GroupBox14.PerformLayout()
-        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox13.ResumeLayout(False)
         Me.GroupBox13.PerformLayout()
         CType(Me.XAccelerationDGV, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1988,6 +1983,8 @@ Partial Class Form1
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2070,7 +2067,6 @@ Partial Class Form1
     Friend WithEvents RoofDeckPlotView As OxyPlot.WindowsForms.PlotView
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents GroupBox10 As GroupBox
-    Friend WithEvents FileRecordedPictureBox As PictureBox
     Friend WithEvents SelectRecordingButton As Button
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents ZAccelerationChart As TabControl
@@ -2099,8 +2095,6 @@ Partial Class Form1
     Friend WithEvents GroupBox15 As GroupBox
     Friend WithEvents GroupBox14 As GroupBox
     Friend WithEvents GroupBox13 As GroupBox
-    Friend WithEvents XDisplacementDGV As DataGridView
-    Friend WithEvents XVelocityDGV As DataGridView
     Friend WithEvents Label14 As Label
     Friend WithEvents XAccelerationDGV As DataGridView
     Friend WithEvents GroupBox16 As GroupBox
@@ -2131,10 +2125,6 @@ Partial Class Form1
     Friend WithEvents ZVelocityPlotView As OxyPlot.WindowsForms.PlotView
     Friend WithEvents DataGridViewTextBoxColumn15 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn16 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn7 As DataGridViewTextBoxColumn
@@ -2162,4 +2152,11 @@ Partial Class Form1
     Friend WithEvents Label26 As Label
     Friend WithEvents ZAccelMaxTextBox As TextBox
     Friend WithEvents Label25 As Label
+    Friend WithEvents FileRecordedButton As Button
+    Friend WithEvents XVelocityDGV As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn17 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn18 As DataGridViewTextBoxColumn
+    Friend WithEvents XDisplacementDGV As DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
 End Class

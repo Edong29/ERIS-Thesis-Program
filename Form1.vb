@@ -1007,7 +1007,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub FileRecordedPictureBox_Click(sender As Object, e As EventArgs) Handles FileRecordedPictureBox.Click
+    Private Sub FileRecordedButton_Click(sender As Object, e As EventArgs) Handles FileRecordedButton.Click
         Try
             If Directory.Exists(triggeredFolderPath) Then
                 Process.Start("explorer.exe", triggeredFolderPath)
@@ -1092,11 +1092,13 @@ Public Class Form1
         Dim velocityX, velocityY, velocityZ As Double
         Dim displacementX, displacementY, displacementZ As Double
 
+        Dim time As Double = 0
         Try
             ' Skip the first 6 lines of metadata
             For i As Integer = 6 To lines.Length - 1
                 Dim parts() As String = lines(i).Split(vbTab)
-                Dim time As Double = Double.Parse(parts(0))
+                'Dim time As Double = Double.Parse(parts(0))
+                time += 0.01
                 Dim accelX As Double = Double.Parse(parts(1))
                 Dim accelY As Double = Double.Parse(parts(2))
                 Dim accelZ As Double = Double.Parse(parts(3))
