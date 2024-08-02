@@ -1095,13 +1095,18 @@ Public Class Form1
         Dim time As Double = 0
         Try
             ' Skip the first 6 lines of metadata
-            For i As Integer = 6 To lines.Length - 1
+            For i As Integer = 6 To lines.Length - 2 ' n-1 because we need i+1 data
                 Dim parts() As String = lines(i).Split(vbTab)
                 'Dim time As Double = Double.Parse(parts(0))
                 time += 0.01
                 Dim accelX As Double = Double.Parse(parts(1))
                 Dim accelY As Double = Double.Parse(parts(2))
                 Dim accelZ As Double = Double.Parse(parts(3))
+
+                Dim nextParts() As String = lines(i + 1).Split(vbTab)
+                Dim nextAccelX As Double = Double.Parse(nextParts(1))
+                Dim nextAccelY As Double = Double.Parse(nextParts(2))
+                Dim nextAccelZ As Double = Double.Parse(nextParts(3))
 
                 ' Update max acceleration values and times
                 If Math.Abs(accelX) > Math.Abs(maxAccelX) Then
@@ -1117,10 +1122,14 @@ Public Class Form1
                     maxAccelZTime = time
                 End If
 
-                ' Integrate acceleration to get velocity
-                velocityX += accelX * deltaTime
-                velocityY += accelY * deltaTime
-                velocityZ += accelZ * deltaTime
+                ' Calculate the change in velocity using the provided formula
+                Dim dVX As Double = 0.5 * (accelX + nextAccelX) * deltaTime
+                Dim dVY As Double = 0.5 * (accelY + nextAccelY) * deltaTime
+                Dim dVZ As Double = 0.5 * (accelZ + nextAccelZ) * deltaTime
+
+                velocityX += dVX
+                velocityY += dVY
+                velocityZ += dVZ
 
                 ' Update max velocity values and times
                 If Math.Abs(velocityX) > Math.Abs(maxVelX) Then
@@ -1136,10 +1145,18 @@ Public Class Form1
                     maxVelZTime = time
                 End If
 
-                ' Integrate velocity to get displacement
-                displacementX += velocityX * deltaTime
-                displacementY += velocityY * deltaTime
-                displacementZ += velocityZ * deltaTime
+                ' Calculate the change in displacement using the trapezoidal rule
+                Dim nextVelocityX As Double = velocityX + dVX
+                Dim nextVelocityY As Double = velocityY + dVY
+                Dim nextVelocityZ As Double = velocityZ + dVZ
+
+                Dim dDX As Double = 0.5 * (velocityX + nextVelocityX) * deltaTime
+                Dim dDY As Double = 0.5 * (velocityY + nextVelocityY) * deltaTime
+                Dim dDZ As Double = 0.5 * (velocityZ + nextVelocityZ) * deltaTime
+
+                displacementX += dDX
+                displacementY += dDY
+                displacementZ += dDZ
 
                 ' Update max displacement values and times
                 If Math.Abs(displacementX) > Math.Abs(maxDispX) Then
