@@ -1109,16 +1109,16 @@ Public Class Form1
                 Dim nextAccelZ As Double = Double.Parse(nextParts(3))
 
                 ' Update max acceleration values and times
-                If Math.Abs(accelX) > Math.Abs(maxAccelX) Then
-                    maxAccelX = accelX
+                If Math.Abs(accelX) > maxAccelX Then
+                    maxAccelX = Math.Abs(accelX)
                     maxAccelXTime = time
                 End If
-                If Math.Abs(accelY) > Math.Abs(maxAccelY) Then
-                    maxAccelY = accelY
+                If Math.Abs(accelY) > maxAccelY Then
+                    maxAccelY = Math.Abs(accelY)
                     maxAccelYTime = time
                 End If
-                If Math.Abs(accelZ) > Math.Abs(maxAccelZ) Then
-                    maxAccelZ = accelZ
+                If Math.Abs(accelZ) > maxAccelZ Then
+                    maxAccelZ = Math.Abs(accelZ)
                     maxAccelZTime = time
                 End If
 
@@ -1132,16 +1132,16 @@ Public Class Form1
                 velocityZ += dVZ
 
                 ' Update max velocity values and times
-                If Math.Abs(velocityX) > Math.Abs(maxVelX) Then
-                    maxVelX = velocityX
+                If Math.Abs(velocityX) > maxVelX Then
+                    maxVelX = Math.Abs(velocityX)
                     maxVelXTime = time
                 End If
-                If Math.Abs(velocityY) > Math.Abs(maxVelY) Then
-                    maxVelY = velocityY
+                If Math.Abs(velocityY) > maxVelY Then
+                    maxVelY = Math.Abs(velocityY)
                     maxVelYTime = time
                 End If
-                If Math.Abs(velocityZ) > Math.Abs(maxVelZ) Then
-                    maxVelZ = velocityZ
+                If Math.Abs(velocityZ) > maxVelZ Then
+                    maxVelZ = Math.Abs(velocityZ)
                     maxVelZTime = time
                 End If
 
@@ -1155,16 +1155,16 @@ Public Class Form1
                 displacementZ += dDZ
 
                 ' Update max displacement values and times
-                If Math.Abs(displacementX) > Math.Abs(maxDispX) Then
-                    maxDispX = displacementX
+                If Math.Abs(displacementX) > maxDispX Then
+                    maxDispX = Math.Abs(displacementX)
                     maxDispXTime = time
                 End If
-                If Math.Abs(displacementY) > Math.Abs(maxDispY) Then
-                    maxDispY = displacementY
+                If Math.Abs(displacementY) > maxDispY Then
+                    maxDispY = Math.Abs(displacementY)
                     maxDispYTime = time
                 End If
-                If Math.Abs(displacementZ) > Math.Abs(maxDispZ) Then
-                    maxDispZ = displacementZ
+                If Math.Abs(displacementZ) > maxDispZ Then
+                    maxDispZ = Math.Abs(displacementZ)
                     maxDispZTime = time
                 End If
 
