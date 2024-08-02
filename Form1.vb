@@ -1145,14 +1145,10 @@ Public Class Form1
                     maxVelZTime = time
                 End If
 
-                ' Calculate the change in displacement using the trapezoidal rule
-                Dim nextVelocityX As Double = velocityX + dVX
-                Dim nextVelocityY As Double = velocityY + dVY
-                Dim nextVelocityZ As Double = velocityZ + dVZ
-
-                Dim dDX As Double = 0.5 * (velocityX + nextVelocityX) * deltaTime
-                Dim dDY As Double = 0.5 * (velocityY + nextVelocityY) * deltaTime
-                Dim dDZ As Double = 0.5 * (velocityZ + nextVelocityZ) * deltaTime
+                ' Trapezoidal integration to calculate displacement
+                Dim dDX As Double = (velocityX + (velocityX - dVX)) * (deltaTime / 2)
+                Dim dDY As Double = (velocityY + (velocityY - dVY)) * (deltaTime / 2)
+                Dim dDZ As Double = (velocityZ + (velocityZ - dVZ)) * (deltaTime / 2)
 
                 displacementX += dDX
                 displacementY += dDY
