@@ -281,8 +281,8 @@ Public Class Form1
                                 writer.WriteLine("Date Recorded: " & currentDate)
                                 writer.WriteLine("Time Recorded: " & currentTime)
                                 writer.WriteLine("Frequency: 100hz")
-                                'writer.WriteLine("time[s]" & vbTab & "AccelX[g]" & vbTab & "AccelY[g]" & vbTab & "AccelZ[g]")
-                                writer.WriteLine("time[s] AccelX[m/s^2] AccelY[m/s^2] AccelZ[m/s^2]")
+                                writer.WriteLine("time[s]" & vbTab & "AccelX[m/s^2]" & vbTab & "AccelY[m/s^2]" & vbTab & "AccelZ[m/s^2]")
+
                             End Using
 
                         Catch ex As Exception
@@ -1169,45 +1169,45 @@ Public Class Form1
                 End If
 
                 ' Add points to the respective series
-                seriesXAccel.Points.Add(New DataPoint(time.ToString("F2"), accelX.ToString("F4")))
-                seriesYAccel.Points.Add(New DataPoint(time.ToString("F2"), accelY.ToString("F4")))
-                seriesZAccel.Points.Add(New DataPoint(time.ToString("F2"), accelZ.ToString("F4")))
+                seriesXAccel.Points.Add(New DataPoint(time.ToString("F2"), accelX.ToString("F5")))
+                seriesYAccel.Points.Add(New DataPoint(time.ToString("F2"), accelY.ToString("F5")))
+                seriesZAccel.Points.Add(New DataPoint(time.ToString("F2"), accelZ.ToString("F5")))
 
-                seriesXVel.Points.Add(New DataPoint(time.ToString("F2"), velocityX.ToString("F4")))
-                seriesYVel.Points.Add(New DataPoint(time.ToString("F2"), velocityY.ToString("F4")))
-                seriesZVel.Points.Add(New DataPoint(time.ToString("F2"), velocityZ.ToString("F4")))
+                seriesXVel.Points.Add(New DataPoint(time.ToString("F2"), velocityX.ToString("F5")))
+                seriesYVel.Points.Add(New DataPoint(time.ToString("F2"), velocityY.ToString("F5")))
+                seriesZVel.Points.Add(New DataPoint(time.ToString("F2"), velocityZ.ToString("F5")))
 
-                seriesXDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementX.ToString("F4")))
-                seriesYDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementY.ToString("F4")))
-                seriesZDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementZ.ToString("F4")))
+                seriesXDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementX.ToString("F5")))
+                seriesYDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementY.ToString("F5")))
+                seriesZDisp.Points.Add(New DataPoint(time.ToString("F2"), displacementZ.ToString("F5")))
 
                 ' Add the data to the respective DataGridViews
-                XAccelerationDGV.Rows.Add(time.ToString("F4"), accelX.ToString("F4"))
-                YAccelerationDGV.Rows.Add(time.ToString("F4"), accelY.ToString("F4"))
-                ZAccelerationDGV.Rows.Add(time.ToString("F4"), accelZ.ToString("F4"))
-                XVelocityDGV.Rows.Add(time.ToString("F4"), velocityX.ToString("F4"))
-                YVelocityDGV.Rows.Add(time.ToString("F4"), velocityY.ToString("F4"))
-                ZVelocityDGV.Rows.Add(time.ToString("F4"), velocityZ.ToString("F4"))
-                XDisplacementDGV.Rows.Add(time.ToString("F4"), displacementX.ToString("F4"))
-                YDisplacementDGV.Rows.Add(time.ToString("F4"), displacementY.ToString("F4"))
-                ZDisplacementDGV.Rows.Add(time.ToString("F4"), displacementZ.ToString("F4"))
+                XAccelerationDGV.Rows.Add(time.ToString("F5"), accelX.ToString("F5"))
+                YAccelerationDGV.Rows.Add(time.ToString("F5"), accelY.ToString("F5"))
+                ZAccelerationDGV.Rows.Add(time.ToString("F5"), accelZ.ToString("F5"))
+                XVelocityDGV.Rows.Add(time.ToString("F5"), velocityX.ToString("F5"))
+                YVelocityDGV.Rows.Add(time.ToString("F5"), velocityY.ToString("F5"))
+                ZVelocityDGV.Rows.Add(time.ToString("F5"), velocityZ.ToString("F5"))
+                XDisplacementDGV.Rows.Add(time.ToString("F5"), displacementX.ToString("F5"))
+                YDisplacementDGV.Rows.Add(time.ToString("F5"), displacementY.ToString("F5"))
+                ZDisplacementDGV.Rows.Add(time.ToString("F5"), displacementZ.ToString("F5"))
             Next
         Catch ex As Exception
             MessageBox.Show("Error reading file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         ' Display max values and times in the text boxes
-        XAccelMaxTextBox.Text = $"{maxAccelX.ToString("F4")}m/s^2 @ {maxAccelXTime.ToString("F2")}s"
-        YAccelMaxTextBox.Text = $"{maxAccelY.ToString("F4")}m/s^2 @ {maxAccelYTime.ToString("F2")}s"
-        ZAccelMaxTextBox.Text = $"{maxAccelZ.ToString("F4")}m/s^2 @ {maxAccelZTime.ToString("F2")}s"
+        XAccelMaxTextBox.Text = $"{maxAccelX.ToString("F5")}m/s^2 @ {maxAccelXTime.ToString("F2")}s"
+        YAccelMaxTextBox.Text = $"{maxAccelY.ToString("F5")}m/s^2 @ {maxAccelYTime.ToString("F2")}s"
+        ZAccelMaxTextBox.Text = $"{maxAccelZ.ToString("F5")}m/s^2 @ {maxAccelZTime.ToString("F2")}s"
 
-        XVelMaxTextBox.Text = $"{maxVelX.ToString("F4")}m/s @ {maxVelXTime.ToString("F2")}s"
-        YVelMaxTextBox.Text = $"{maxVelY.ToString("F4")}m/s @ {maxVelYTime.ToString("F2")}s"
-        ZVelMaxTextBox.Text = $"{maxVelZ.ToString("F4")}m/s @ {maxVelZTime.ToString("F2")}s"
+        XVelMaxTextBox.Text = $"{maxVelX.ToString("F5")}m/s @ {maxVelXTime.ToString("F2")}s"
+        YVelMaxTextBox.Text = $"{maxVelY.ToString("F5")}m/s @ {maxVelYTime.ToString("F2")}s"
+        ZVelMaxTextBox.Text = $"{maxVelZ.ToString("F5")}m/s @ {maxVelZTime.ToString("F2")}s"
 
-        XDispMaxTextBox.Text = $"{maxDispX.ToString("F4")}m @ {maxDispXTime.ToString("F2")}s"
-        YDispMaxTextBox.Text = $"{maxDispY.ToString("F4")}m @ {maxDispYTime.ToString("F2")}s"
-        ZDispMaxTextBox.Text = $"{maxDispZ.ToString("F4")}m @ {maxDispZTime.ToString("F2")}s"
+        XDispMaxTextBox.Text = $"{maxDispX.ToString("F5")}m @ {maxDispXTime.ToString("F2")}s"
+        YDispMaxTextBox.Text = $"{maxDispY.ToString("F5")}m @ {maxDispYTime.ToString("F2")}s"
+        ZDispMaxTextBox.Text = $"{maxDispZ.ToString("F5")}m @ {maxDispZTime.ToString("F2")}s"
 
         ' Add the series to their respective PlotModels
         plotModelXAccel.Series.Add(seriesXAccel)
@@ -1250,7 +1250,9 @@ Public Class Form1
                 ' Open the file to write
                 Using writer As New StreamWriter(filePath)
                     ' Write headers
-                    writer.WriteLine("Time[s]  AccelX[m/s²]  VelX[m/s]  DispX[m]  AccelY[m/s²]  VelY[m/s]  DispY[m]  AccelZ[m/s²]  VelZ[m/s]  DispZ[m]")
+                    'writer.WriteLine("Time[s]  AccelX[m/s²]  VelX[m/s]  DispX[m]  AccelY[m/s²]  VelY[m/s]  DispY[m]  AccelZ[m/s²]  VelZ[m/s]  DispZ[m]")
+                    writer.WriteLine("Time[s]" & vbTab & "AccelX[m/s²]" & vbTab & "VelX[m/s]" & vbTab & "DispX[m]" & vbTab & "AccelY[m/s²]" & vbTab & "VelY[m/s]" & vbTab & "DispY[m]" & vbTab & "AccelZ[m/s²]" & vbTab & "VelZ[m/s]" & vbTab & "DispZ[m]")
+
 
                     ' Write data from DataGridViews
                     For i As Integer = 0 To XAccelerationDGV.Rows.Count - 1
@@ -1269,7 +1271,9 @@ Public Class Form1
                         Dim dispZ As String = ZDisplacementDGV.Rows(i).Cells(1).Value.ToString()
 
                         ' Write the formatted line to the file
-                        writer.WriteLine($"{time}  {accelX}  {velX}  {dispX}  {accelY}  {velY}  {dispY}  {accelZ}  {velZ}  {dispZ}")
+                        'writer.WriteLine($"{time}  {accelX}  {velX}  {dispX}  {accelY}  {velY}  {dispY}  {accelZ}  {velZ}  {dispZ}")
+                        writer.WriteLine($"{time}{vbTab}{accelX}{vbTab}{velX}{vbTab}{dispX}{vbTab}{accelY}{vbTab}{velY}{vbTab}{dispY}{vbTab}{accelZ}{vbTab}{velZ}{vbTab}{dispZ}")
+
                     Next
                 End Using
 
