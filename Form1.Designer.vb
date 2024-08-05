@@ -26,7 +26,7 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.ERISMainTabControl = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
@@ -81,11 +81,17 @@ Partial Class Form1
         Me.ZAccelerationChart = New System.Windows.Forms.TabControl()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.GroupBox15 = New System.Windows.Forms.GroupBox()
+        Me.XDisplacementDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.XDispMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.XDisplacementPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.PlotView6 = New OxyPlot.WindowsForms.PlotView()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.XVelocityDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.XVelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.XVelocityPlotView = New OxyPlot.WindowsForms.PlotView()
@@ -158,18 +164,29 @@ Partial Class Form1
         Me.Label21 = New System.Windows.Forms.Label()
         Me.RecordingTitleListBox = New System.Windows.Forms.ListBox()
         Me.SelectRecordingButton = New System.Windows.Forms.Button()
+        Me.VisualizationTabPage = New System.Windows.Forms.TabPage()
+        Me.GroupBox25 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox24 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox23 = New System.Windows.Forms.GroupBox()
+        Me.FrontViewPictureBox = New System.Windows.Forms.PictureBox()
+        Me.GroupBox22 = New System.Windows.Forms.GroupBox()
+        Me.SelectGroundFloorTextBox = New System.Windows.Forms.TextBox()
+        Me.SelectMidHeightTextBox = New System.Windows.Forms.TextBox()
+        Me.SelectRoofDeckTextBox = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.SelectGroundFloorFileButton = New System.Windows.Forms.Button()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.SelectMidHeightFileButton = New System.Windows.Forms.Button()
+        Me.StartVisualizationButton = New System.Windows.Forms.Button()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.SelectRoofDeckFileButton = New System.Windows.Forms.Button()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.XVelocityDGV = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.XDisplacementDGV = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TabControl1.SuspendLayout()
+        Me.VisualizationTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.ERISMainTabControl.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -189,7 +206,9 @@ Partial Class Form1
         Me.ZAccelerationChart.SuspendLayout()
         Me.TabPage5.SuspendLayout()
         Me.GroupBox15.SuspendLayout()
+        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox14.SuspendLayout()
+        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox13.SuspendLayout()
         CType(Me.XAccelerationDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage6.SuspendLayout()
@@ -209,9 +228,11 @@ Partial Class Form1
         Me.GroupBox10.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
+        Me.VisualizationTabPage.SuspendLayout()
+        Me.GroupBox23.SuspendLayout()
+        CType(Me.FrontViewPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox22.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -238,21 +259,22 @@ Partial Class Form1
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Earthquake Recording Instrumentation System"
         '
-        'TabControl1
+        'ERISMainTabControl
         '
-        Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.ERISMainTabControl.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Controls.Add(Me.TabPage3)
-        Me.TabControl1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(16, 96)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1603, 742)
-        Me.TabControl1.TabIndex = 4
+        Me.ERISMainTabControl.Controls.Add(Me.TabPage1)
+        Me.ERISMainTabControl.Controls.Add(Me.TabPage2)
+        Me.ERISMainTabControl.Controls.Add(Me.TabPage3)
+        Me.ERISMainTabControl.Controls.Add(Me.VisualizationTabPage)
+        Me.ERISMainTabControl.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ERISMainTabControl.Location = New System.Drawing.Point(16, 96)
+        Me.ERISMainTabControl.Margin = New System.Windows.Forms.Padding(4)
+        Me.ERISMainTabControl.Name = "ERISMainTabControl"
+        Me.ERISMainTabControl.SelectedIndex = 0
+        Me.ERISMainTabControl.Size = New System.Drawing.Size(1603, 742)
+        Me.ERISMainTabControl.TabIndex = 4
         '
         'TabPage1
         '
@@ -970,6 +992,34 @@ Partial Class Form1
         Me.GroupBox15.TabStop = False
         Me.GroupBox15.Text = "Displacement"
         '
+        'XDisplacementDGV
+        '
+        Me.XDisplacementDGV.AllowUserToAddRows = False
+        Me.XDisplacementDGV.AllowUserToDeleteRows = False
+        Me.XDisplacementDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.XDisplacementDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
+        Me.XDisplacementDGV.Location = New System.Drawing.Point(6, 24)
+        Me.XDisplacementDGV.Name = "XDisplacementDGV"
+        Me.XDisplacementDGV.ReadOnly = True
+        Me.XDisplacementDGV.Size = New System.Drawing.Size(275, 139)
+        Me.XDisplacementDGV.TabIndex = 39
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn1.Width = 90
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Disp [m]"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
         'XDispMaxTextBox
         '
         Me.XDispMaxTextBox.Location = New System.Drawing.Point(83, 169)
@@ -1033,6 +1083,34 @@ Partial Class Form1
         Me.GroupBox14.TabIndex = 1
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Velocity"
+        '
+        'XVelocityDGV
+        '
+        Me.XVelocityDGV.AllowUserToAddRows = False
+        Me.XVelocityDGV.AllowUserToDeleteRows = False
+        Me.XVelocityDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.XVelocityDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18})
+        Me.XVelocityDGV.Location = New System.Drawing.Point(6, 24)
+        Me.XVelocityDGV.Name = "XVelocityDGV"
+        Me.XVelocityDGV.ReadOnly = True
+        Me.XVelocityDGV.Size = New System.Drawing.Size(275, 139)
+        Me.XVelocityDGV.TabIndex = 38
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn17.Width = 90
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Vel [m/s]"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        Me.DataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'XVelMaxTextBox
         '
@@ -1839,6 +1917,203 @@ Partial Class Form1
         Me.SelectRecordingButton.TabIndex = 12
         Me.SelectRecordingButton.UseVisualStyleBackColor = False
         '
+        'VisualizationTabPage
+        '
+        Me.VisualizationTabPage.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox25)
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox24)
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox23)
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox22)
+        Me.VisualizationTabPage.Location = New System.Drawing.Point(4, 24)
+        Me.VisualizationTabPage.Name = "VisualizationTabPage"
+        Me.VisualizationTabPage.Padding = New System.Windows.Forms.Padding(3)
+        Me.VisualizationTabPage.Size = New System.Drawing.Size(1595, 714)
+        Me.VisualizationTabPage.TabIndex = 3
+        Me.VisualizationTabPage.Text = "TabPage8"
+        '
+        'GroupBox25
+        '
+        Me.GroupBox25.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox25.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox25.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox25.Location = New System.Drawing.Point(1121, 7)
+        Me.GroupBox25.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox25.Name = "GroupBox25"
+        Me.GroupBox25.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox25.Size = New System.Drawing.Size(440, 689)
+        Me.GroupBox25.TabIndex = 25
+        Me.GroupBox25.TabStop = False
+        Me.GroupBox25.Text = "Plan"
+        '
+        'GroupBox24
+        '
+        Me.GroupBox24.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox24.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox24.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox24.Location = New System.Drawing.Point(673, 7)
+        Me.GroupBox24.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox24.Name = "GroupBox24"
+        Me.GroupBox24.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox24.Size = New System.Drawing.Size(440, 689)
+        Me.GroupBox24.TabIndex = 24
+        Me.GroupBox24.TabStop = False
+        Me.GroupBox24.Text = "Side"
+        '
+        'GroupBox23
+        '
+        Me.GroupBox23.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox23.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox23.Controls.Add(Me.FrontViewPictureBox)
+        Me.GroupBox23.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox23.Location = New System.Drawing.Point(225, 7)
+        Me.GroupBox23.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox23.Name = "GroupBox23"
+        Me.GroupBox23.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox23.Size = New System.Drawing.Size(440, 689)
+        Me.GroupBox23.TabIndex = 23
+        Me.GroupBox23.TabStop = False
+        Me.GroupBox23.Text = "Front"
+        '
+        'FrontViewPictureBox
+        '
+        Me.FrontViewPictureBox.Location = New System.Drawing.Point(7, 29)
+        Me.FrontViewPictureBox.Name = "FrontViewPictureBox"
+        Me.FrontViewPictureBox.Size = New System.Drawing.Size(426, 653)
+        Me.FrontViewPictureBox.TabIndex = 0
+        Me.FrontViewPictureBox.TabStop = False
+        '
+        'GroupBox22
+        '
+        Me.GroupBox22.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox22.Controls.Add(Me.SelectGroundFloorTextBox)
+        Me.GroupBox22.Controls.Add(Me.SelectMidHeightTextBox)
+        Me.GroupBox22.Controls.Add(Me.SelectRoofDeckTextBox)
+        Me.GroupBox22.Controls.Add(Me.Label29)
+        Me.GroupBox22.Controls.Add(Me.SelectGroundFloorFileButton)
+        Me.GroupBox22.Controls.Add(Me.Label28)
+        Me.GroupBox22.Controls.Add(Me.SelectMidHeightFileButton)
+        Me.GroupBox22.Controls.Add(Me.StartVisualizationButton)
+        Me.GroupBox22.Controls.Add(Me.Label33)
+        Me.GroupBox22.Controls.Add(Me.SelectRoofDeckFileButton)
+        Me.GroupBox22.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox22.Location = New System.Drawing.Point(20, 7)
+        Me.GroupBox22.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox22.Name = "GroupBox22"
+        Me.GroupBox22.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox22.Size = New System.Drawing.Size(197, 458)
+        Me.GroupBox22.TabIndex = 10
+        Me.GroupBox22.TabStop = False
+        Me.GroupBox22.Text = "File Parameters"
+        '
+        'SelectGroundFloorTextBox
+        '
+        Me.SelectGroundFloorTextBox.Location = New System.Drawing.Point(7, 332)
+        Me.SelectGroundFloorTextBox.Name = "SelectGroundFloorTextBox"
+        Me.SelectGroundFloorTextBox.ReadOnly = True
+        Me.SelectGroundFloorTextBox.Size = New System.Drawing.Size(183, 29)
+        Me.SelectGroundFloorTextBox.TabIndex = 34
+        '
+        'SelectMidHeightTextBox
+        '
+        Me.SelectMidHeightTextBox.Location = New System.Drawing.Point(7, 222)
+        Me.SelectMidHeightTextBox.Name = "SelectMidHeightTextBox"
+        Me.SelectMidHeightTextBox.ReadOnly = True
+        Me.SelectMidHeightTextBox.Size = New System.Drawing.Size(183, 29)
+        Me.SelectMidHeightTextBox.TabIndex = 33
+        '
+        'SelectRoofDeckTextBox
+        '
+        Me.SelectRoofDeckTextBox.Location = New System.Drawing.Point(7, 112)
+        Me.SelectRoofDeckTextBox.Name = "SelectRoofDeckTextBox"
+        Me.SelectRoofDeckTextBox.ReadOnly = True
+        Me.SelectRoofDeckTextBox.Size = New System.Drawing.Size(183, 29)
+        Me.SelectRoofDeckTextBox.TabIndex = 1
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.Location = New System.Drawing.Point(23, 312)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(159, 17)
+        Me.Label29.TabIndex = 32
+        Me.Label29.Text = "Select Ground Floor File"
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'SelectGroundFloorFileButton
+        '
+        Me.SelectGroundFloorFileButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.SelectGroundFloorFileButton.BackgroundImage = Global.ERIS_Thesis_Program.My.Resources.Resources.search_file_3735190
+        Me.SelectGroundFloorFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SelectGroundFloorFileButton.Location = New System.Drawing.Point(26, 257)
+        Me.SelectGroundFloorFileButton.Name = "SelectGroundFloorFileButton"
+        Me.SelectGroundFloorFileButton.Size = New System.Drawing.Size(51, 52)
+        Me.SelectGroundFloorFileButton.TabIndex = 31
+        Me.SelectGroundFloorFileButton.UseVisualStyleBackColor = False
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label28.Location = New System.Drawing.Point(23, 202)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(148, 17)
+        Me.Label28.TabIndex = 29
+        Me.Label28.Text = "Select Mid Height File"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'SelectMidHeightFileButton
+        '
+        Me.SelectMidHeightFileButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.SelectMidHeightFileButton.BackgroundImage = Global.ERIS_Thesis_Program.My.Resources.Resources.search_file_3735190
+        Me.SelectMidHeightFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SelectMidHeightFileButton.Location = New System.Drawing.Point(26, 147)
+        Me.SelectMidHeightFileButton.Name = "SelectMidHeightFileButton"
+        Me.SelectMidHeightFileButton.Size = New System.Drawing.Size(51, 52)
+        Me.SelectMidHeightFileButton.TabIndex = 28
+        Me.SelectMidHeightFileButton.UseVisualStyleBackColor = False
+        '
+        'StartVisualizationButton
+        '
+        Me.StartVisualizationButton.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StartVisualizationButton.Location = New System.Drawing.Point(25, 403)
+        Me.StartVisualizationButton.Name = "StartVisualizationButton"
+        Me.StartVisualizationButton.Size = New System.Drawing.Size(127, 37)
+        Me.StartVisualizationButton.TabIndex = 26
+        Me.StartVisualizationButton.Text = "Start"
+        Me.StartVisualizationButton.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.Location = New System.Drawing.Point(23, 92)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(140, 17)
+        Me.Label33.TabIndex = 23
+        Me.Label33.Text = "Select Roof Deck File"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'SelectRoofDeckFileButton
+        '
+        Me.SelectRoofDeckFileButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.SelectRoofDeckFileButton.BackgroundImage = Global.ERIS_Thesis_Program.My.Resources.Resources.search_file_3735190
+        Me.SelectRoofDeckFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SelectRoofDeckFileButton.Location = New System.Drawing.Point(26, 37)
+        Me.SelectRoofDeckFileButton.Name = "SelectRoofDeckFileButton"
+        Me.SelectRoofDeckFileButton.Size = New System.Drawing.Size(51, 52)
+        Me.SelectRoofDeckFileButton.TabIndex = 12
+        Me.SelectRoofDeckFileButton.UseVisualStyleBackColor = False
+        '
         'UpdateTimer
         '
         '
@@ -1854,68 +2129,16 @@ Partial Class Form1
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
-        'XVelocityDGV
+        'VisualizationTimer
         '
-        Me.XVelocityDGV.AllowUserToAddRows = False
-        Me.XVelocityDGV.AllowUserToDeleteRows = False
-        Me.XVelocityDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.XVelocityDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18})
-        Me.XVelocityDGV.Location = New System.Drawing.Point(6, 24)
-        Me.XVelocityDGV.Name = "XVelocityDGV"
-        Me.XVelocityDGV.ReadOnly = True
-        Me.XVelocityDGV.Size = New System.Drawing.Size(275, 139)
-        Me.XVelocityDGV.TabIndex = 38
-        '
-        'DataGridViewTextBoxColumn17
-        '
-        Me.DataGridViewTextBoxColumn17.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
-        Me.DataGridViewTextBoxColumn17.ReadOnly = True
-        Me.DataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn17.Width = 90
-        '
-        'DataGridViewTextBoxColumn18
-        '
-        Me.DataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn18.HeaderText = "Vel [m/s]"
-        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
-        Me.DataGridViewTextBoxColumn18.ReadOnly = True
-        Me.DataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'XDisplacementDGV
-        '
-        Me.XDisplacementDGV.AllowUserToAddRows = False
-        Me.XDisplacementDGV.AllowUserToDeleteRows = False
-        Me.XDisplacementDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.XDisplacementDGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
-        Me.XDisplacementDGV.Location = New System.Drawing.Point(6, 24)
-        Me.XDisplacementDGV.Name = "XDisplacementDGV"
-        Me.XDisplacementDGV.ReadOnly = True
-        Me.XDisplacementDGV.Size = New System.Drawing.Size(275, 139)
-        Me.XDisplacementDGV.TabIndex = 39
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn1.Width = 90
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Disp [m]"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.VisualizationTimer.Interval = 10
         '
         'Form1
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1632, 851)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.ERISMainTabControl)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -1923,7 +2146,7 @@ Partial Class Form1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
         Me.Text = "E.R.I.S."
-        Me.TabControl1.ResumeLayout(False)
+        Me.ERISMainTabControl.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1951,8 +2174,10 @@ Partial Class Form1
         Me.TabPage5.ResumeLayout(False)
         Me.GroupBox15.ResumeLayout(False)
         Me.GroupBox15.PerformLayout()
+        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox14.ResumeLayout(False)
         Me.GroupBox14.PerformLayout()
+        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox13.ResumeLayout(False)
         Me.GroupBox13.PerformLayout()
         CType(Me.XAccelerationDGV, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1982,9 +2207,12 @@ Partial Class Form1
         Me.GroupBox12.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
+        Me.VisualizationTabPage.ResumeLayout(False)
+        Me.GroupBox23.ResumeLayout(False)
+        CType(Me.FrontViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox22.ResumeLayout(False)
+        Me.GroupBox22.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XVelocityDGV, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XDisplacementDGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1998,7 +2226,7 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents ERISMainTabControl As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
@@ -2159,4 +2387,21 @@ Partial Class Form1
     Friend WithEvents XDisplacementDGV As DataGridView
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents VisualizationTabPage As TabPage
+    Friend WithEvents GroupBox22 As GroupBox
+    Friend WithEvents StartVisualizationButton As Button
+    Friend WithEvents Label33 As Label
+    Friend WithEvents SelectRoofDeckFileButton As Button
+    Friend WithEvents Label29 As Label
+    Friend WithEvents SelectGroundFloorFileButton As Button
+    Friend WithEvents Label28 As Label
+    Friend WithEvents SelectMidHeightFileButton As Button
+    Friend WithEvents GroupBox25 As GroupBox
+    Friend WithEvents GroupBox24 As GroupBox
+    Friend WithEvents GroupBox23 As GroupBox
+    Friend WithEvents FrontViewPictureBox As PictureBox
+    Friend WithEvents VisualizationTimer As Timer
+    Friend WithEvents SelectGroundFloorTextBox As TextBox
+    Friend WithEvents SelectMidHeightTextBox As TextBox
+    Friend WithEvents SelectRoofDeckTextBox As TextBox
 End Class

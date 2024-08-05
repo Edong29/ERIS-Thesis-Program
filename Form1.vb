@@ -10,8 +10,9 @@ Imports OxyPlot.WindowsForms
 Imports DataPoint = OxyPlot.DataPoint
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock
-Imports ScottPlot
 Imports OxyPlot.Axes
+Imports System.Timers
+'Imports System.Windows.Media
 
 Public Class Form1
     Dim myPort As Array
@@ -1285,6 +1286,148 @@ Public Class Form1
     End Sub
 
 #End Region
+
+#Region "Visualization"
+    Private groundDisplacementData As List(Of Double)
+    Private midHeightDisplacementData As List(Of Double)
+    Private roofDisplacementData As List(Of Double)
+
+    Private groundCurrentIndex As Integer = 0
+    Private midHeightCurrentIndex As Integer = 0
+    Private roofCurrentIndex As Integer = 0
+
+    Private groundCirclePositionX As Integer = 0
+    Private midHeightCirclePositionX As Integer = 0
+    Private roofCirclePositionX As Integer = 0
+
+    Private GroundFloorFilePath As String = ""
+    Private MidHeightFilePath As String = ""
+    Private RoofDeckFilePath As String = ""
+
+    Private Sub SelectRecordingToVisualize_Click(sender As Object, e As EventArgs) Handles SelectGroundFloorFileButton.Click, SelectMidHeightFileButton.Click, SelectRoofDeckFileButton.Click
+        Dim openFileDialog As New OpenFileDialog()
+        openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+            ' Get the selected file path
+            Dim filePath As String = openFileDialog.FileName
+            ' Get only the filename and add it to the appropriate TextBox
+            Dim fileName As String = Path.GetFileName(filePath)
+
+            Select Case sender.Name
+                Case "SelectGroundFloorFileButton"
+                    SelectGroundFloorTextBox.Text = fileName
+                    ' Optionally, store the full path if needed
+                    GroundFloorFilePath = filePath
+
+                Case "SelectMidHeightFileButton"
+                    SelectMidHeightTextBox.Text = fileName
+                    ' Optionally, store the full path if needed
+                    MidHeightFilePath = filePath
+
+                Case "SelectRoofDeckFileButton"
+                    SelectRoofDeckTextBox.Text = fileName
+                    ' Optionally, store the full path if needed
+                    RoofDeckFilePath = filePath
+            End Select
+        End If
+    End Sub
+
+    Private Sub ERISMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ERISMainTabControl.SelectedIndexChanged
+        InitializeCirclePositions()
+    End Sub
+
+    Private Sub InitializeCirclePositions()
+        groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+        midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+        roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+    End Sub
+
+    Private Sub StartVisualizationButton_Click(sender As Object, e As EventArgs) Handles StartVisualizationButton.Click
+        ' Load and process the acceleration data
+        groundDisplacementData = LoadAndConvertDisplacementData(GroundFloorFilePath)
+        midHeightDisplacementData = LoadAndConvertDisplacementData(MidHeightFilePath)
+        roofDisplacementData = LoadAndConvertDisplacementData(RoofDeckFilePath)
+
+        ' Start the visualization
+        VisualizationTimer.Start()
+        InitializeCirclePositions()
+    End Sub
+
+    Private Function LoadAndConvertDisplacementData(filePath As String) As List(Of Double)
+        Dim displacementData As New List(Of Double)
+        Dim velocity As Double = 0
+        Dim displacement As Double = 0
+        Dim deltaTime As Double = 0.01 ' Assuming a fixed time interval (0.01 seconds)
+
+        ' Read the acceleration data from the file
+        Dim lines() As String = File.ReadAllLines(filePath)
+
+        ' Skip the first 6 lines (metadata)
+        For i As Integer = 6 To lines.Length - 2
+            Dim parts() As String = lines(i).Split(vbTab)
+            Dim nextParts() As String = lines(i + 1).Split(vbTab)
+
+            Dim accelX As Double = Double.Parse(parts(1))
+            Dim nextAccelX As Double = Double.Parse(nextParts(1))
+
+            ' Calculate the change in velocity using trapezoidal rule
+            Dim deltaV As Double = 0.5 * (accelX + nextAccelX) * deltaTime
+
+            ' Update velocity
+            velocity += deltaV
+
+            ' Update displacement
+            displacement += velocity * deltaTime
+
+            ' Store displacement value
+            displacementData.Add(displacement)
+        Next
+
+        Return displacementData
+    End Function
+
+    Private Sub VisualizationTimer_Tick(sender As Object, e As EventArgs) Handles VisualizationTimer.Tick
+        ' Update the circle positions based on the displacement data
+        Dim scalingFactor As Integer = 100
+        If groundCurrentIndex < groundDisplacementData.Count - 1 AndAlso
+           midHeightCurrentIndex < midHeightDisplacementData.Count - 1 AndAlso
+           roofCurrentIndex < roofDisplacementData.Count - 1 Then
+
+            groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (groundDisplacementData(groundCurrentIndex) * scalingFactor)
+            midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (midHeightDisplacementData(midHeightCurrentIndex) * scalingFactor)
+            roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (roofDisplacementData(roofCurrentIndex) * scalingFactor)
+
+            groundCurrentIndex += 1
+            midHeightCurrentIndex += 1
+            roofCurrentIndex += 1
+
+            FrontViewPictureBox.Invalidate() ' Refresh the drawing
+        Else
+            VisualizationTimer.Stop() ' Stop the timer when data is exhausted
+            groundCurrentIndex = 0
+            midHeightCurrentIndex = 0
+            roofCurrentIndex = 0
+        End If
+    End Sub
+
+    Private Sub FrontViewPictureBox_Paint(sender As Object, e As PaintEventArgs) Handles FrontViewPictureBox.Paint
+        ' Draw the circles at the current x positions
+        Dim g As Graphics = e.Graphics
+        Dim circleRadius As Integer = 10
+        Dim y1 As Integer = FrontViewPictureBox.Height * (3 / 4) - circleRadius ' Ground Floor Y
+        Dim y2 As Integer = FrontViewPictureBox.Height * (1 / 2) - circleRadius ' Mid Height Y
+        Dim y3 As Integer = FrontViewPictureBox.Height * (1 / 4) - circleRadius ' Roof Deck Y
+
+        g.Clear(Color.White) ' Clear the previous drawing
+
+        ' Draw the circles
+        g.FillEllipse(Brushes.Blue, groundCirclePositionX, y1, circleRadius * 2, circleRadius * 2) ' Ground Floor Movement
+        g.FillEllipse(Brushes.Orange, midHeightCirclePositionX, y2, circleRadius * 2, circleRadius * 2) ' Mid Height Movement
+        g.FillEllipse(Brushes.Red, roofCirclePositionX, y3, circleRadius * 2, circleRadius * 2) ' Roof Deck Movement
+    End Sub
+#End Region
+
 
 End Class
 
