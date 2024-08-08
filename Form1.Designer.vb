@@ -183,9 +183,11 @@ Partial Class Form1
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.VisualizationTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.SideViewPictureBox = New System.Windows.Forms.PictureBox()
+        Me.PlanViewPictureBox = New System.Windows.Forms.PictureBox()
         Me.ERISMainTabControl.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -229,10 +231,14 @@ Partial Class Form1
         Me.GroupBox12.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.VisualizationTabPage.SuspendLayout()
+        Me.GroupBox25.SuspendLayout()
+        Me.GroupBox24.SuspendLayout()
         Me.GroupBox23.SuspendLayout()
         CType(Me.FrontViewPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox22.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SideViewPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PlanViewPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -1937,6 +1943,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox25.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox25.Controls.Add(Me.PlanViewPictureBox)
         Me.GroupBox25.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox25.Location = New System.Drawing.Point(1121, 7)
         Me.GroupBox25.Margin = New System.Windows.Forms.Padding(4)
@@ -1945,7 +1952,7 @@ Partial Class Form1
         Me.GroupBox25.Size = New System.Drawing.Size(440, 689)
         Me.GroupBox25.TabIndex = 25
         Me.GroupBox25.TabStop = False
-        Me.GroupBox25.Text = "Plan"
+        Me.GroupBox25.Text = "Plan View (X-Y)"
         '
         'GroupBox24
         '
@@ -1953,6 +1960,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox24.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox24.Controls.Add(Me.SideViewPictureBox)
         Me.GroupBox24.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox24.Location = New System.Drawing.Point(673, 7)
         Me.GroupBox24.Margin = New System.Windows.Forms.Padding(4)
@@ -1961,7 +1969,7 @@ Partial Class Form1
         Me.GroupBox24.Size = New System.Drawing.Size(440, 689)
         Me.GroupBox24.TabIndex = 24
         Me.GroupBox24.TabStop = False
-        Me.GroupBox24.Text = "Side"
+        Me.GroupBox24.Text = "Side View (Y-Z)"
         '
         'GroupBox23
         '
@@ -1978,7 +1986,7 @@ Partial Class Form1
         Me.GroupBox23.Size = New System.Drawing.Size(440, 689)
         Me.GroupBox23.TabIndex = 23
         Me.GroupBox23.TabStop = False
-        Me.GroupBox23.Text = "Front"
+        Me.GroupBox23.Text = "Front View (X-Z)"
         '
         'FrontViewPictureBox
         '
@@ -2114,9 +2122,6 @@ Partial Class Form1
         Me.SelectRoofDeckFileButton.TabIndex = 12
         Me.SelectRoofDeckFileButton.UseVisualStyleBackColor = False
         '
-        'UpdateTimer
-        '
-        '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
@@ -2132,6 +2137,25 @@ Partial Class Form1
         'VisualizationTimer
         '
         Me.VisualizationTimer.Interval = 10
+        '
+        'UpdateTimer
+        '
+        '
+        'SideViewPictureBox
+        '
+        Me.SideViewPictureBox.Location = New System.Drawing.Point(7, 29)
+        Me.SideViewPictureBox.Name = "SideViewPictureBox"
+        Me.SideViewPictureBox.Size = New System.Drawing.Size(426, 653)
+        Me.SideViewPictureBox.TabIndex = 1
+        Me.SideViewPictureBox.TabStop = False
+        '
+        'PlanViewPictureBox
+        '
+        Me.PlanViewPictureBox.Location = New System.Drawing.Point(7, 29)
+        Me.PlanViewPictureBox.Name = "PlanViewPictureBox"
+        Me.PlanViewPictureBox.Size = New System.Drawing.Size(426, 653)
+        Me.PlanViewPictureBox.TabIndex = 1
+        Me.PlanViewPictureBox.TabStop = False
         '
         'Form1
         '
@@ -2208,11 +2232,15 @@ Partial Class Form1
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.VisualizationTabPage.ResumeLayout(False)
+        Me.GroupBox25.ResumeLayout(False)
+        Me.GroupBox24.ResumeLayout(False)
         Me.GroupBox23.ResumeLayout(False)
         CType(Me.FrontViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox22.ResumeLayout(False)
         Me.GroupBox22.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SideViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PlanViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2290,7 +2318,6 @@ Partial Class Form1
     Friend WithEvents StatusTextBox As TextBox
     Friend WithEvents ExportToTextBox As TextBox
     Friend WithEvents GroundFloorPlotView As OxyPlot.WindowsForms.PlotView
-    Friend WithEvents UpdateTimer As Timer
     Friend WithEvents MidHeightPlotView As OxyPlot.WindowsForms.PlotView
     Friend WithEvents RoofDeckPlotView As OxyPlot.WindowsForms.PlotView
     Friend WithEvents TabPage3 As TabPage
@@ -2404,4 +2431,7 @@ Partial Class Form1
     Friend WithEvents SelectGroundFloorTextBox As TextBox
     Friend WithEvents SelectMidHeightTextBox As TextBox
     Friend WithEvents SelectRoofDeckTextBox As TextBox
+    Friend WithEvents UpdateTimer As Timer
+    Friend WithEvents PlanViewPictureBox As PictureBox
+    Friend WithEvents SideViewPictureBox As PictureBox
 End Class

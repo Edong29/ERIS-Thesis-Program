@@ -1288,9 +1288,15 @@ Public Class Form1
 #End Region
 
 #Region "Visualization"
-    Private groundDisplacementData As List(Of Double)
-    Private midHeightDisplacementData As List(Of Double)
-    Private roofDisplacementData As List(Of Double)
+    Private groundXDisplacementData As List(Of Double)
+    Private midHeightXDisplacementData As List(Of Double)
+    Private roofXDisplacementData As List(Of Double)
+    Private groundYDisplacementData As List(Of Double)
+    Private midHeightYDisplacementData As List(Of Double)
+    Private roofYDisplacementData As List(Of Double)
+    Private groundZDisplacementData As List(Of Double)
+    Private midHeightZDisplacementData As List(Of Double)
+    Private roofZDisplacementData As List(Of Double)
 
     Private groundCurrentIndex As Integer = 0
     Private midHeightCurrentIndex As Integer = 0
@@ -1299,10 +1305,18 @@ Public Class Form1
     Private groundCirclePositionX As Integer = 0
     Private midHeightCirclePositionX As Integer = 0
     Private roofCirclePositionX As Integer = 0
+    Private groundCirclePositionY As Integer = 0
+    Private midHeightCirclePositionY As Integer = 0
+    Private roofCirclePositionY As Integer = 0
+    Private groundCirclePositionZ As Integer = 0
+    Private midHeightCirclePositionZ As Integer = 0
+    Private roofCirclePositionZ As Integer = 0
 
     Private GroundFloorFilePath As String = ""
     Private MidHeightFilePath As String = ""
     Private RoofDeckFilePath As String = ""
+
+    Private visualizationStopwatch As New Stopwatch()
 
     Private Sub SelectRecordingToVisualize_Click(sender As Object, e As EventArgs) Handles SelectGroundFloorFileButton.Click, SelectMidHeightFileButton.Click, SelectRoofDeckFileButton.Click
         Dim openFileDialog As New OpenFileDialog()
@@ -1338,23 +1352,41 @@ Public Class Form1
     End Sub
 
     Private Sub InitializeCirclePositions()
-        groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
-        midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
-        roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+        'groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+        'midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+        'roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
+
+        'groundCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
+        'midHeightCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
+        'roofCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
+
+        'groundCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
+        'midHeightCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
+        'roofCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
     End Sub
 
     Private Sub StartVisualizationButton_Click(sender As Object, e As EventArgs) Handles StartVisualizationButton.Click
         ' Load and process the acceleration data
-        groundDisplacementData = LoadAndConvertDisplacementData(GroundFloorFilePath)
-        midHeightDisplacementData = LoadAndConvertDisplacementData(MidHeightFilePath)
-        roofDisplacementData = LoadAndConvertDisplacementData(RoofDeckFilePath)
+        'X
+        groundXDisplacementData = LoadAndConvertXDisplacementData(GroundFloorFilePath)
+        midHeightXDisplacementData = LoadAndConvertXDisplacementData(MidHeightFilePath)
+        roofXDisplacementData = LoadAndConvertXDisplacementData(RoofDeckFilePath)
+        'Y
+        groundYDisplacementData = LoadAndConvertYDisplacementData(GroundFloorFilePath)
+        midHeightYDisplacementData = LoadAndConvertYDisplacementData(MidHeightFilePath)
+        roofYDisplacementData = LoadAndConvertYDisplacementData(RoofDeckFilePath)
+        'Z
+        groundZDisplacementData = LoadAndConvertZDisplacementData(GroundFloorFilePath)
+        midHeightZDisplacementData = LoadAndConvertZDisplacementData(MidHeightFilePath)
+        roofZDisplacementData = LoadAndConvertZDisplacementData(RoofDeckFilePath)
 
         ' Start the visualization
         VisualizationTimer.Start()
+        visualizationStopwatch.Restart() ' Start the stopwatch
         InitializeCirclePositions()
     End Sub
 
-    Private Function LoadAndConvertDisplacementData(filePath As String) As List(Of Double)
+    Private Function LoadAndConvertXDisplacementData(filePath As String) As List(Of Double)
         Dim displacementData As New List(Of Double)
         Dim velocity As Double = 0
         Dim displacement As Double = 0
@@ -1380,34 +1412,119 @@ Public Class Form1
             ' Update displacement
             displacement += velocity * deltaTime
 
+            Dim scalingFactor As Integer = 1000
+
             ' Store displacement value
-            displacementData.Add(displacement)
+            displacementData.Add(displacement * scalingFactor)
         Next
 
+        Return displacementData
+    End Function
+    Private Function LoadAndConvertYDisplacementData(filePath As String) As List(Of Double)
+        Dim displacementData As New List(Of Double)
+        Dim velocity As Double = 0
+        Dim displacement As Double = 0
+        Dim deltaTime As Double = 0.01 ' Assuming a fixed time interval (0.01 seconds)
+
+        ' Read the acceleration data from the file
+        Dim lines() As String = File.ReadAllLines(filePath)
+
+        ' Skip the first 6 lines (metadata)
+        For i As Integer = 6 To lines.Length - 2
+            Dim parts() As String = lines(i).Split(vbTab)
+            Dim nextParts() As String = lines(i + 1).Split(vbTab)
+
+            Dim accelY As Double = Double.Parse(parts(2))
+            Dim nextAccelY As Double = Double.Parse(nextParts(2))
+
+            ' Calculate the change in velocity using trapezoidal rule
+            Dim deltaV As Double = 0.5 * (accelY + nextAccelY) * deltaTime
+
+            ' Update velocity
+            velocity += deltaV
+
+            ' Update displacement
+            displacement += velocity * deltaTime
+
+            Dim scalingFactor As Integer = 1000
+
+            ' Store displacement value
+            displacementData.Add(displacement * scalingFactor)
+        Next
+
+        Return displacementData
+    End Function
+    Private Function LoadAndConvertZDisplacementData(filePath As String) As List(Of Double)
+        Dim displacementData As New List(Of Double)
+        Dim velocity As Double = 0
+        Dim displacement As Double = 0
+        Dim deltaTime As Double = 0.01 ' Assuming a fixed time interval (0.01 seconds)
+
+        ' Read the acceleration data from the file
+        Dim lines() As String = File.ReadAllLines(filePath)
+
+        ' Skip the first 6 lines (metadata)
+        For i As Integer = 6 To lines.Length - 2
+            Dim parts() As String = lines(i).Split(vbTab)
+            Dim nextParts() As String = lines(i + 1).Split(vbTab)
+
+            Dim accelZ As Double = Double.Parse(parts(3))
+            Dim nextAccelZ As Double = Double.Parse(nextParts(3))
+
+            ' Calculate the change in velocity using trapezoidal rule
+            Dim deltaV As Double = 0.5 * (accelZ + nextAccelZ) * deltaTime
+
+            ' Update velocity
+            velocity += deltaV
+
+            ' Update displacement
+            displacement += velocity * deltaTime
+
+            Dim scalingFactor As Integer = 1000
+
+            ' Store displacement value
+            displacementData.Add(displacement * scalingFactor)
+        Next
+
+        Return displacementData
         Return displacementData
     End Function
 
     Private Sub VisualizationTimer_Tick(sender As Object, e As EventArgs) Handles VisualizationTimer.Tick
         ' Update the circle positions based on the displacement data
-        Dim scalingFactor As Integer = 100
-        If groundCurrentIndex < groundDisplacementData.Count - 1 AndAlso
-           midHeightCurrentIndex < midHeightDisplacementData.Count - 1 AndAlso
-           roofCurrentIndex < roofDisplacementData.Count - 1 Then
+        If groundCurrentIndex < groundXDisplacementData.Count - 1 AndAlso
+           midHeightCurrentIndex < midHeightXDisplacementData.Count - 1 AndAlso
+           roofCurrentIndex < roofXDisplacementData.Count - 1 Then
 
-            groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (groundDisplacementData(groundCurrentIndex) * scalingFactor)
-            midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (midHeightDisplacementData(midHeightCurrentIndex) * scalingFactor)
-            roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10 + (roofDisplacementData(roofCurrentIndex) * scalingFactor)
+            groundCirclePositionX = (groundXDisplacementData(groundCurrentIndex))
+            midHeightCirclePositionX = (midHeightXDisplacementData(midHeightCurrentIndex))
+            roofCirclePositionX = (roofXDisplacementData(roofCurrentIndex))
+
+            groundCirclePositionY = (groundYDisplacementData(groundCurrentIndex))
+            midHeightCirclePositionY = (midHeightYDisplacementData(midHeightCurrentIndex))
+            roofCirclePositionY = (roofYDisplacementData(roofCurrentIndex))
+
+            groundCirclePositionZ = (groundZDisplacementData(groundCurrentIndex))
+            midHeightCirclePositionZ = (midHeightZDisplacementData(midHeightCurrentIndex))
+            roofCirclePositionZ = (roofZDisplacementData(roofCurrentIndex))
 
             groundCurrentIndex += 1
             midHeightCurrentIndex += 1
             roofCurrentIndex += 1
 
             FrontViewPictureBox.Invalidate() ' Refresh the drawing
+            SideViewPictureBox.Invalidate() ' Refresh the drawing
+            PlanViewPictureBox.Invalidate() ' Refresh the drawing
         Else
             VisualizationTimer.Stop() ' Stop the timer when data is exhausted
             groundCurrentIndex = 0
             midHeightCurrentIndex = 0
             roofCurrentIndex = 0
+
+            ' Stop the stopwatch and display the elapsed time
+            visualizationStopwatch.Stop()
+            Dim elapsedTime As Double = visualizationStopwatch.Elapsed.TotalSeconds
+            MessageBox.Show("Visualization completed in " & elapsedTime.ToString("F2") & " seconds.")
         End If
     End Sub
 
@@ -1415,16 +1532,65 @@ Public Class Form1
         ' Draw the circles at the current x positions
         Dim g As Graphics = e.Graphics
         Dim circleRadius As Integer = 10
-        Dim y1 As Integer = FrontViewPictureBox.Height * (3 / 4) - circleRadius ' Ground Floor Y
-        Dim y2 As Integer = FrontViewPictureBox.Height * (1 / 2) - circleRadius ' Mid Height Y
-        Dim y3 As Integer = FrontViewPictureBox.Height * (1 / 4) - circleRadius ' Roof Deck Y
+
+        Dim x1 As Integer = (FrontViewPictureBox.Width / 2) - circleRadius + groundCirclePositionX ' Ground Floor X
+        Dim x2 As Integer = (FrontViewPictureBox.Width / 2) - circleRadius + midHeightCirclePositionX ' Mid Height X
+        Dim x3 As Integer = (FrontViewPictureBox.Width / 2) - circleRadius + roofCirclePositionX ' Roof Deck X
+
+        Dim z1 As Integer = FrontViewPictureBox.Height * (3 / 4) - circleRadius + groundCirclePositionZ ' Ground Floor Z
+        Dim z2 As Integer = FrontViewPictureBox.Height * (1 / 2) - circleRadius + midHeightCirclePositionZ ' Mid Height Z
+        Dim z3 As Integer = FrontViewPictureBox.Height * (1 / 4) - circleRadius + roofCirclePositionZ ' Roof Deck Z
 
         g.Clear(Color.White) ' Clear the previous drawing
 
         ' Draw the circles
-        g.FillEllipse(Brushes.Blue, groundCirclePositionX, y1, circleRadius * 2, circleRadius * 2) ' Ground Floor Movement
-        g.FillEllipse(Brushes.Orange, midHeightCirclePositionX, y2, circleRadius * 2, circleRadius * 2) ' Mid Height Movement
-        g.FillEllipse(Brushes.Red, roofCirclePositionX, y3, circleRadius * 2, circleRadius * 2) ' Roof Deck Movement
+        g.FillEllipse(Brushes.Red, x3, z3, circleRadius * 2, circleRadius * 2) ' Roof Deck Movement
+        g.FillEllipse(Brushes.Orange, x2, z2, circleRadius * 2, circleRadius * 2) ' Mid Height Movement
+        g.FillEllipse(Brushes.Blue, x1, z1, circleRadius * 2, circleRadius * 2) ' Ground Floor Movement
+
+    End Sub
+    Private Sub SideViewPictureBox_Paint(sender As Object, e As PaintEventArgs) Handles SideViewPictureBox.Paint
+        ' Draw the circles at the current x positions
+        Dim g As Graphics = e.Graphics
+        Dim circleRadius As Integer = 10
+
+        Dim y1 As Integer = (SideViewPictureBox.Width / 2) - circleRadius + groundCirclePositionY ' Ground Floor Y
+        Dim y2 As Integer = (SideViewPictureBox.Width / 2) - circleRadius + midHeightCirclePositionY ' Mid Height Y
+        Dim y3 As Integer = (SideViewPictureBox.Width / 2) - circleRadius + roofCirclePositionY ' Roof Deck Y
+
+        Dim z1 As Integer = SideViewPictureBox.Height * (3 / 4) - circleRadius + groundCirclePositionZ ' Ground Floor Z
+        Dim z2 As Integer = SideViewPictureBox.Height * (1 / 2) - circleRadius + midHeightCirclePositionZ ' Mid Height Z
+        Dim z3 As Integer = SideViewPictureBox.Height * (1 / 4) - circleRadius + roofCirclePositionZ ' Roof Deck Z
+
+        g.Clear(Color.White) ' Clear the previous drawing
+
+        ' Draw the circles
+        g.FillEllipse(Brushes.Red, y3, z3, circleRadius * 2, circleRadius * 2) ' Roof Deck Movement
+        g.FillEllipse(Brushes.Orange, y2, z2, circleRadius * 2, circleRadius * 2) ' Mid Height Movement
+        g.FillEllipse(Brushes.Blue, y1, z1, circleRadius * 2, circleRadius * 2) ' Ground Floor Movement
+
+    End Sub
+    Private Sub PlanViewPictureBox_Paint(sender As Object, e As PaintEventArgs) Handles PlanViewPictureBox.Paint
+        ' Draw the circles at the current x positions
+        Dim g As Graphics = e.Graphics
+        Dim circleRadius As Integer = 10
+
+        Dim x1 As Integer = (PlanViewPictureBox.Width / 2) - circleRadius + groundCirclePositionX ' Ground Floor X
+        Dim x2 As Integer = (PlanViewPictureBox.Width / 2) - circleRadius + midHeightCirclePositionX ' Mid Height X
+        Dim x3 As Integer = (PlanViewPictureBox.Width / 2) - circleRadius + roofCirclePositionX ' Roof Deck X
+
+        Dim y1 As Integer = PlanViewPictureBox.Height * (1 / 2) - circleRadius + groundCirclePositionY ' Ground Floor Y
+        Dim y2 As Integer = PlanViewPictureBox.Height * (1 / 2) - circleRadius + midHeightCirclePositionY ' Mid Height Y
+        Dim y3 As Integer = PlanViewPictureBox.Height * (1 / 2) - circleRadius + roofCirclePositionY ' Roof Deck Y
+
+        g.Clear(Color.White) ' Clear the previous drawing
+
+        ' Draw the circles
+        g.FillEllipse(Brushes.Blue, x1, y1, circleRadius * 2, circleRadius * 2) ' Ground Floor Movement
+        g.FillEllipse(Brushes.Orange, x2, y2, circleRadius * 2, circleRadius * 2) ' Mid Height Movement
+        g.FillEllipse(Brushes.Red, x3, y3, circleRadius * 2, circleRadius * 2) ' Roof Deck Movement
+
+
     End Sub
 #End Region
 
