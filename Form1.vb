@@ -1128,9 +1128,11 @@ Public Class Form1
                 Dim dVY As Double = 0.5 * (accelY + nextAccelY) * deltaTime
                 Dim dVZ As Double = 0.5 * (accelZ + nextAccelZ) * deltaTime
 
-                velocityX += dVX
-                velocityY += dVY
-                velocityZ += dVZ
+                Dim m_to_mm As Integer = 1000
+
+                velocityX += dVX * m_to_mm
+                velocityY += dVY * m_to_mm
+                velocityZ += dVZ * m_to_mm
 
                 ' Update max velocity values and times
                 If Math.Abs(velocityX) > maxVelX Then
@@ -1318,6 +1320,8 @@ Public Class Form1
 
     Private visualizationStopwatch As New Stopwatch()
 
+    Private ScalingFactor As Integer = 1
+
     Private Sub SelectRecordingToVisualize_Click(sender As Object, e As EventArgs) Handles SelectGroundFloorFileButton.Click, SelectMidHeightFileButton.Click, SelectRoofDeckFileButton.Click
         Dim openFileDialog As New OpenFileDialog()
         openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
@@ -1347,24 +1351,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ERISMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ERISMainTabControl.SelectedIndexChanged
-        InitializeCirclePositions()
-    End Sub
-
-    Private Sub InitializeCirclePositions()
-        'groundCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
-        'midHeightCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
-        'roofCirclePositionX = (FrontViewPictureBox.Width / 2) - 10
-
-        'groundCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
-        'midHeightCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
-        'roofCirclePositionY = (FrontViewPictureBox.Width / 2) - 10
-
-        'groundCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
-        'midHeightCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
-        'roofCirclePositionZ = (FrontViewPictureBox.Width / 2) - 10
-    End Sub
-
     Private Sub StartVisualizationButton_Click(sender As Object, e As EventArgs) Handles StartVisualizationButton.Click
         ' Load and process the acceleration data
         'X
@@ -1383,7 +1369,6 @@ Public Class Form1
         ' Start the visualization
         VisualizationTimer.Start()
         visualizationStopwatch.Restart() ' Start the stopwatch
-        InitializeCirclePositions()
     End Sub
 
     Private Function LoadAndConvertXDisplacementData(filePath As String) As List(Of Double)
@@ -1407,15 +1392,14 @@ Public Class Form1
             Dim deltaV As Double = 0.5 * (accelX + nextAccelX) * deltaTime
 
             ' Update velocity
-            velocity += deltaV
+            Dim m_to_mm As Integer = 1000
+            velocity += deltaV * m_to_mm
 
             ' Update displacement
-            displacement += velocity * deltaTime
-
-            Dim scalingFactor As Integer = 1000
+            displacement += velocity * deltaTime * ScalingFactor
 
             ' Store displacement value
-            displacementData.Add(displacement * scalingFactor)
+            displacementData.Add(displacement)
         Next
 
         Return displacementData
@@ -1441,15 +1425,14 @@ Public Class Form1
             Dim deltaV As Double = 0.5 * (accelY + nextAccelY) * deltaTime
 
             ' Update velocity
-            velocity += deltaV
+            Dim m_to_mm As Integer = 1000
+            velocity += deltaV * m_to_mm
 
             ' Update displacement
-            displacement += velocity * deltaTime
-
-            Dim scalingFactor As Integer = 1000
+            displacement += velocity * deltaTime * ScalingFactor
 
             ' Store displacement value
-            displacementData.Add(displacement * scalingFactor)
+            displacementData.Add(displacement)
         Next
 
         Return displacementData
@@ -1475,15 +1458,14 @@ Public Class Form1
             Dim deltaV As Double = 0.5 * (accelZ + nextAccelZ) * deltaTime
 
             ' Update velocity
-            velocity += deltaV
+            Dim m_to_mm As Integer = 1000
+            velocity += deltaV * m_to_mm
 
             ' Update displacement
-            displacement += velocity * deltaTime
-
-            Dim scalingFactor As Integer = 1000
+            displacement += velocity * deltaTime * ScalingFactor
 
             ' Store displacement value
-            displacementData.Add(displacement * scalingFactor)
+            displacementData.Add(displacement)
         Next
 
         Return displacementData
