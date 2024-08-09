@@ -1297,9 +1297,9 @@ Public Class Form1
     Private groundYDisplacementData As List(Of Double)
     Private midHeightYDisplacementData As List(Of Double)
     Private roofYDisplacementData As List(Of Double)
-    Private groundZDisplacementData As List(Of Double)
-    Private midHeightZDisplacementData As List(Of Double)
-    Private roofZDisplacementData As List(Of Double)
+    'Private groundZDisplacementData As List(Of Double)
+    'Private midHeightZDisplacementData As List(Of Double)
+    'Private roofZDisplacementData As List(Of Double)
 
     Private groundCurrentIndex As Integer = 0
     Private midHeightCurrentIndex As Integer = 0
@@ -1311,9 +1311,9 @@ Public Class Form1
     Private groundCirclePositionY As Integer = 0
     Private midHeightCirclePositionY As Integer = 0
     Private roofCirclePositionY As Integer = 0
-    Private groundCirclePositionZ As Integer = 0
-    Private midHeightCirclePositionZ As Integer = 0
-    Private roofCirclePositionZ As Integer = 0
+    'Private groundCirclePositionZ As Integer = 0
+    'Private midHeightCirclePositionZ As Integer = 0
+    'Private roofCirclePositionZ As Integer = 0
 
     Private GroundFloorFilePath As String = ""
     Private MidHeightFilePath As String = ""
@@ -1373,10 +1373,10 @@ Public Class Form1
         groundYDisplacementData = LoadAndConvertYDisplacementData(GroundFloorFilePath)
         midHeightYDisplacementData = LoadAndConvertYDisplacementData(MidHeightFilePath)
         roofYDisplacementData = LoadAndConvertYDisplacementData(RoofDeckFilePath)
-        'Z
-        groundZDisplacementData = LoadAndConvertZDisplacementData(GroundFloorFilePath)
-        midHeightZDisplacementData = LoadAndConvertZDisplacementData(MidHeightFilePath)
-        roofZDisplacementData = LoadAndConvertZDisplacementData(RoofDeckFilePath)
+        ''Z
+        'groundZDisplacementData = LoadAndConvertZDisplacementData(GroundFloorFilePath)
+        'midHeightZDisplacementData = LoadAndConvertZDisplacementData(MidHeightFilePath)
+        'roofZDisplacementData = LoadAndConvertZDisplacementData(RoofDeckFilePath)
 
         ' Start the visualization
         VisualizationTimer.Start()
@@ -1527,9 +1527,9 @@ Public Class Form1
             midHeightCirclePositionY = (midHeightYDisplacementData(midHeightCurrentIndex))
             roofCirclePositionY = (roofYDisplacementData(roofCurrentIndex))
 
-            groundCirclePositionZ = (groundZDisplacementData(groundCurrentIndex))
-            midHeightCirclePositionZ = (midHeightZDisplacementData(midHeightCurrentIndex))
-            roofCirclePositionZ = (roofZDisplacementData(roofCurrentIndex))
+            'groundCirclePositionZ = (groundZDisplacementData(groundCurrentIndex))
+            'midHeightCirclePositionZ = (midHeightZDisplacementData(midHeightCurrentIndex))
+            'roofCirclePositionZ = (roofZDisplacementData(roofCurrentIndex))
 
             groundCurrentIndex += 1
             midHeightCurrentIndex += 1
@@ -1538,12 +1538,19 @@ Public Class Form1
             FrontViewPictureBox.Invalidate() ' Refresh the drawing
             SideViewPictureBox.Invalidate() ' Refresh the drawing
             PlanViewPictureBox.Invalidate() ' Refresh the drawing
+
+            VisualizattionTimeLabel.Text = "Time: " & String.Format("{0:00}:{1:00}.{2:00}",
+                               Math.Floor(visualizationStopwatch.Elapsed.TotalMinutes),
+                               visualizationStopwatch.Elapsed.Seconds,
+                               visualizationStopwatch.Elapsed.Milliseconds \ 10)
         Else
             'enable or disable some components
             StartVisualizationButton.Enabled = True
             EndVisualizationButton.Enabled = False
             AxisScalingTrackBar.Enabled = True
             '
+
+            VisualizationStarted = False
 
             VisualizationTimer.Stop() ' Stop the timer when data is exhausted
             groundCurrentIndex = 0
@@ -1552,8 +1559,8 @@ Public Class Form1
 
             ' Stop the stopwatch and display the elapsed time
             visualizationStopwatch.Stop()
-            Dim elapsedTime As Double = visualizationStopwatch.Elapsed.TotalSeconds
-            MessageBox.Show("Visualization completed in " & elapsedTime.ToString("F2") & " seconds.")
+            'Dim elapsedTime As Double = visualizationStopwatch.Elapsed.TotalSeconds
+            'MessageBox.Show("Visualization completed in " & elapsedTime.ToString("F2") & " seconds.")
         End If
     End Sub
     Private Sub FrontViewPictureBox_Paint(sender As Object, e As PaintEventArgs) Handles FrontViewPictureBox.Paint
@@ -1567,9 +1574,9 @@ Public Class Form1
         Dim x3 As Integer = (FrontViewPictureBox.Width / 2) - circleRadius + roofCirclePositionX ' Roof Deck X
 
         ' Calculate y positions for the circles (Z is used as Y here)
-        Dim y1 As Integer = FrontViewPictureBox.Height * (3 / 4) - circleRadius + groundCirclePositionZ ' Ground Floor Z
-        Dim y2 As Integer = FrontViewPictureBox.Height * (1 / 2) - circleRadius + midHeightCirclePositionZ ' Mid Height Z
-        Dim y3 As Integer = FrontViewPictureBox.Height * (1 / 4) - circleRadius + roofCirclePositionZ ' Roof Deck Z
+        Dim y1 As Integer = FrontViewPictureBox.Height * (3 / 4) - circleRadius '+ groundCirclePositionZ ' Ground Floor Z
+        Dim y2 As Integer = FrontViewPictureBox.Height * (1 / 2) - circleRadius '+ midHeightCirclePositionZ ' Mid Height Z
+        Dim y3 As Integer = FrontViewPictureBox.Height * (1 / 4) - circleRadius '+ roofCirclePositionZ ' Roof Deck Z
 
         g.Clear(Color.White) ' Clear the previous drawing
 
@@ -1593,9 +1600,9 @@ Public Class Form1
         Dim y2 As Integer = (SideViewPictureBox.Width / 2) - circleRadius + midHeightCirclePositionY ' Mid Height Y
         Dim y3 As Integer = (SideViewPictureBox.Width / 2) - circleRadius + roofCirclePositionY ' Roof Deck Y
 
-        Dim z1 As Integer = SideViewPictureBox.Height * (3 / 4) - circleRadius + groundCirclePositionZ ' Ground Floor Z
-        Dim z2 As Integer = SideViewPictureBox.Height * (1 / 2) - circleRadius + midHeightCirclePositionZ ' Mid Height Z
-        Dim z3 As Integer = SideViewPictureBox.Height * (1 / 4) - circleRadius + roofCirclePositionZ ' Roof Deck Z
+        Dim z1 As Integer = SideViewPictureBox.Height * (3 / 4) - circleRadius '+ groundCirclePositionZ ' Ground Floor Z
+        Dim z2 As Integer = SideViewPictureBox.Height * (1 / 2) - circleRadius '+ midHeightCirclePositionZ ' Mid Height Z
+        Dim z3 As Integer = SideViewPictureBox.Height * (1 / 4) - circleRadius '+ roofCirclePositionZ ' Roof Deck Z
 
         g.Clear(Color.White) ' Clear the previous drawing
 

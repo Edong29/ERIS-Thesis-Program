@@ -169,6 +169,7 @@ Partial Class Form1
         Me.AxisScalingLabel = New System.Windows.Forms.Label()
         Me.AxisScalingTrackBar = New System.Windows.Forms.TrackBar()
         Me.GroupBox26 = New System.Windows.Forms.GroupBox()
+        Me.VisualizattionTimeLabel = New System.Windows.Forms.Label()
         Me.EndVisualizationButton = New System.Windows.Forms.Button()
         Me.StartVisualizationButton = New System.Windows.Forms.Button()
         Me.GroupBox25 = New System.Windows.Forms.GroupBox()
@@ -1953,11 +1954,11 @@ Partial Class Form1
         Me.GroupBox27.Controls.Add(Me.AxisScalingLabel)
         Me.GroupBox27.Controls.Add(Me.AxisScalingTrackBar)
         Me.GroupBox27.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox27.Location = New System.Drawing.Point(20, 514)
+        Me.GroupBox27.Location = New System.Drawing.Point(20, 552)
         Me.GroupBox27.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox27.Name = "GroupBox27"
         Me.GroupBox27.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox27.Size = New System.Drawing.Size(197, 182)
+        Me.GroupBox27.Size = New System.Drawing.Size(197, 144)
         Me.GroupBox27.TabIndex = 27
         Me.GroupBox27.TabStop = False
         Me.GroupBox27.Text = "Axis Scaling"
@@ -1984,6 +1985,7 @@ Partial Class Form1
         'GroupBox26
         '
         Me.GroupBox26.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox26.Controls.Add(Me.VisualizattionTimeLabel)
         Me.GroupBox26.Controls.Add(Me.EndVisualizationButton)
         Me.GroupBox26.Controls.Add(Me.StartVisualizationButton)
         Me.GroupBox26.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1991,10 +1993,20 @@ Partial Class Form1
         Me.GroupBox26.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox26.Name = "GroupBox26"
         Me.GroupBox26.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox26.Size = New System.Drawing.Size(197, 120)
+        Me.GroupBox26.Size = New System.Drawing.Size(197, 158)
         Me.GroupBox26.TabIndex = 26
         Me.GroupBox26.TabStop = False
         Me.GroupBox26.Text = "Playback Controls"
+        '
+        'VisualizattionTimeLabel
+        '
+        Me.VisualizattionTimeLabel.AutoSize = True
+        Me.VisualizattionTimeLabel.ForeColor = System.Drawing.Color.IndianRed
+        Me.VisualizattionTimeLabel.Location = New System.Drawing.Point(44, 122)
+        Me.VisualizattionTimeLabel.Name = "VisualizattionTimeLabel"
+        Me.VisualizattionTimeLabel.Size = New System.Drawing.Size(119, 21)
+        Me.VisualizattionTimeLabel.TabIndex = 28
+        Me.VisualizattionTimeLabel.Text = "Time: 00:00.00"
         '
         'EndVisualizationButton
         '
@@ -2057,7 +2069,7 @@ Partial Class Form1
         Me.GroupBox24.Size = New System.Drawing.Size(440, 689)
         Me.GroupBox24.TabIndex = 24
         Me.GroupBox24.TabStop = False
-        Me.GroupBox24.Text = "Side View (Y-Z)"
+        Me.GroupBox24.Text = "Side View (Y)"
         '
         'SideViewPictureBox
         '
@@ -2082,7 +2094,7 @@ Partial Class Form1
         Me.GroupBox23.Size = New System.Drawing.Size(440, 689)
         Me.GroupBox23.TabIndex = 23
         Me.GroupBox23.TabStop = False
-        Me.GroupBox23.Text = "Front View (X-Z)"
+        Me.GroupBox23.Text = "Front View (X)"
         '
         'FrontViewPictureBox
         '
@@ -2304,6 +2316,7 @@ Partial Class Form1
         Me.GroupBox27.PerformLayout()
         CType(Me.AxisScalingTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox26.ResumeLayout(False)
+        Me.GroupBox26.PerformLayout()
         Me.GroupBox25.ResumeLayout(False)
         CType(Me.PlanViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox24.ResumeLayout(False)
@@ -2511,4 +2524,5 @@ Partial Class Form1
     Friend WithEvents EndVisualizationButton As Button
     Friend WithEvents AxisScalingTrackBar As TrackBar
     Friend WithEvents AxisScalingLabel As Label
+    Friend WithEvents VisualizattionTimeLabel As Label
 End Class
