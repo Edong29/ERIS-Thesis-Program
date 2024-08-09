@@ -82,12 +82,16 @@ Partial Class Form1
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.GroupBox15 = New System.Windows.Forms.GroupBox()
         Me.XDisplacementDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.XDispMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.XDisplacementPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.PlotView6 = New OxyPlot.WindowsForms.PlotView()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
         Me.XVelocityDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.XVelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.XVelocityPlotView = New OxyPlot.WindowsForms.PlotView()
@@ -105,11 +109,15 @@ Partial Class Form1
         Me.Label24 = New System.Windows.Forms.Label()
         Me.YDisplacementPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.YDisplacementDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox17 = New System.Windows.Forms.GroupBox()
         Me.YVelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.YVelocityPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.YVelocityDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox18 = New System.Windows.Forms.GroupBox()
         Me.YAccelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -123,11 +131,15 @@ Partial Class Form1
         Me.Label27 = New System.Windows.Forms.Label()
         Me.ZDisplacementPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.ZDisplacementDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox20 = New System.Windows.Forms.GroupBox()
         Me.ZVelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.ZVelocityPlotView = New OxyPlot.WindowsForms.PlotView()
         Me.ZVelocityDGV = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox21 = New System.Windows.Forms.GroupBox()
         Me.ZAccelMaxTextBox = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -153,6 +165,12 @@ Partial Class Form1
         Me.RecordingTitleListBox = New System.Windows.Forms.ListBox()
         Me.SelectRecordingButton = New System.Windows.Forms.Button()
         Me.VisualizationTabPage = New System.Windows.Forms.TabPage()
+        Me.GroupBox27 = New System.Windows.Forms.GroupBox()
+        Me.AxisScalingLabel = New System.Windows.Forms.Label()
+        Me.AxisScalingTrackBar = New System.Windows.Forms.TrackBar()
+        Me.GroupBox26 = New System.Windows.Forms.GroupBox()
+        Me.EndVisualizationButton = New System.Windows.Forms.Button()
+        Me.StartVisualizationButton = New System.Windows.Forms.Button()
         Me.GroupBox25 = New System.Windows.Forms.GroupBox()
         Me.PlanViewPictureBox = New System.Windows.Forms.PictureBox()
         Me.GroupBox24 = New System.Windows.Forms.GroupBox()
@@ -167,7 +185,6 @@ Partial Class Form1
         Me.SelectGroundFloorFileButton = New System.Windows.Forms.Button()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.SelectMidHeightFileButton = New System.Windows.Forms.Button()
-        Me.StartVisualizationButton = New System.Windows.Forms.Button()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.SelectRoofDeckFileButton = New System.Windows.Forms.Button()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
@@ -176,18 +193,6 @@ Partial Class Form1
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.VisualizationTimer = New System.Windows.Forms.Timer(Me.components)
         Me.UpdateTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ERISMainTabControl.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -231,6 +236,9 @@ Partial Class Form1
         Me.GroupBox12.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.VisualizationTabPage.SuspendLayout()
+        Me.GroupBox27.SuspendLayout()
+        CType(Me.AxisScalingTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox26.SuspendLayout()
         Me.GroupBox25.SuspendLayout()
         CType(Me.PlanViewPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox24.SuspendLayout()
@@ -1010,6 +1018,22 @@ Partial Class Form1
         Me.XDisplacementDGV.Size = New System.Drawing.Size(275, 139)
         Me.XDisplacementDGV.TabIndex = 39
         '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn1.Width = 90
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Disp [mm]"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
         'XDispMaxTextBox
         '
         Me.XDispMaxTextBox.Location = New System.Drawing.Point(83, 169)
@@ -1085,6 +1109,22 @@ Partial Class Form1
         Me.XVelocityDGV.ReadOnly = True
         Me.XVelocityDGV.Size = New System.Drawing.Size(275, 139)
         Me.XVelocityDGV.TabIndex = 38
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn17.Width = 90
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn18.HeaderText = "Vel [mm/s]"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        Me.DataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'XVelMaxTextBox
         '
@@ -1285,6 +1325,22 @@ Partial Class Form1
         Me.YDisplacementDGV.Size = New System.Drawing.Size(275, 139)
         Me.YDisplacementDGV.TabIndex = 30
         '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn5.Width = 90
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Disp [mm]"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
         'GroupBox17
         '
         Me.GroupBox17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1345,6 +1401,22 @@ Partial Class Form1
         Me.YVelocityDGV.ReadOnly = True
         Me.YVelocityDGV.Size = New System.Drawing.Size(275, 139)
         Me.YVelocityDGV.TabIndex = 30
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn7.Width = 90
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Vel [mm/s]"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'GroupBox18
         '
@@ -1497,6 +1569,22 @@ Partial Class Form1
         Me.ZDisplacementDGV.Size = New System.Drawing.Size(275, 139)
         Me.ZDisplacementDGV.TabIndex = 30
         '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn11.Width = 90
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn12.HeaderText = "Disp [mm]"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        Me.DataGridViewTextBoxColumn12.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
         'GroupBox20
         '
         Me.GroupBox20.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1557,6 +1645,22 @@ Partial Class Form1
         Me.ZVelocityDGV.ReadOnly = True
         Me.ZVelocityDGV.Size = New System.Drawing.Size(275, 139)
         Me.ZVelocityDGV.TabIndex = 30
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.HeaderText = "Time [s]"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        Me.DataGridViewTextBoxColumn13.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridViewTextBoxColumn13.Width = 90
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn14.HeaderText = "Vel [mm/s]"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        Me.DataGridViewTextBoxColumn14.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'GroupBox21
         '
@@ -1830,6 +1934,8 @@ Partial Class Form1
         'VisualizationTabPage
         '
         Me.VisualizationTabPage.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox27)
+        Me.VisualizationTabPage.Controls.Add(Me.GroupBox26)
         Me.VisualizationTabPage.Controls.Add(Me.GroupBox25)
         Me.VisualizationTabPage.Controls.Add(Me.GroupBox24)
         Me.VisualizationTabPage.Controls.Add(Me.GroupBox23)
@@ -1839,7 +1945,77 @@ Partial Class Form1
         Me.VisualizationTabPage.Padding = New System.Windows.Forms.Padding(3)
         Me.VisualizationTabPage.Size = New System.Drawing.Size(1595, 714)
         Me.VisualizationTabPage.TabIndex = 3
-        Me.VisualizationTabPage.Text = "TabPage8"
+        Me.VisualizationTabPage.Text = "(4) Event Playback"
+        '
+        'GroupBox27
+        '
+        Me.GroupBox27.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox27.Controls.Add(Me.AxisScalingLabel)
+        Me.GroupBox27.Controls.Add(Me.AxisScalingTrackBar)
+        Me.GroupBox27.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox27.Location = New System.Drawing.Point(20, 514)
+        Me.GroupBox27.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox27.Name = "GroupBox27"
+        Me.GroupBox27.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox27.Size = New System.Drawing.Size(197, 182)
+        Me.GroupBox27.TabIndex = 27
+        Me.GroupBox27.TabStop = False
+        Me.GroupBox27.Text = "Axis Scaling"
+        '
+        'AxisScalingLabel
+        '
+        Me.AxisScalingLabel.AutoSize = True
+        Me.AxisScalingLabel.Location = New System.Drawing.Point(22, 77)
+        Me.AxisScalingLabel.Name = "AxisScalingLabel"
+        Me.AxisScalingLabel.Size = New System.Drawing.Size(51, 21)
+        Me.AxisScalingLabel.TabIndex = 1
+        Me.AxisScalingLabel.Text = "100%"
+        '
+        'AxisScalingTrackBar
+        '
+        Me.AxisScalingTrackBar.Location = New System.Drawing.Point(7, 29)
+        Me.AxisScalingTrackBar.Maximum = 5
+        Me.AxisScalingTrackBar.Minimum = 1
+        Me.AxisScalingTrackBar.Name = "AxisScalingTrackBar"
+        Me.AxisScalingTrackBar.Size = New System.Drawing.Size(183, 45)
+        Me.AxisScalingTrackBar.TabIndex = 0
+        Me.AxisScalingTrackBar.Value = 1
+        '
+        'GroupBox26
+        '
+        Me.GroupBox26.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox26.Controls.Add(Me.EndVisualizationButton)
+        Me.GroupBox26.Controls.Add(Me.StartVisualizationButton)
+        Me.GroupBox26.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox26.Location = New System.Drawing.Point(20, 386)
+        Me.GroupBox26.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox26.Name = "GroupBox26"
+        Me.GroupBox26.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox26.Size = New System.Drawing.Size(197, 120)
+        Me.GroupBox26.TabIndex = 26
+        Me.GroupBox26.TabStop = False
+        Me.GroupBox26.Text = "Playback Controls"
+        '
+        'EndVisualizationButton
+        '
+        Me.EndVisualizationButton.Enabled = False
+        Me.EndVisualizationButton.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EndVisualizationButton.Location = New System.Drawing.Point(36, 72)
+        Me.EndVisualizationButton.Name = "EndVisualizationButton"
+        Me.EndVisualizationButton.Size = New System.Drawing.Size(127, 37)
+        Me.EndVisualizationButton.TabIndex = 27
+        Me.EndVisualizationButton.Text = "Stop"
+        Me.EndVisualizationButton.UseVisualStyleBackColor = True
+        '
+        'StartVisualizationButton
+        '
+        Me.StartVisualizationButton.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StartVisualizationButton.Location = New System.Drawing.Point(36, 29)
+        Me.StartVisualizationButton.Name = "StartVisualizationButton"
+        Me.StartVisualizationButton.Size = New System.Drawing.Size(127, 37)
+        Me.StartVisualizationButton.TabIndex = 26
+        Me.StartVisualizationButton.Text = "Start"
+        Me.StartVisualizationButton.UseVisualStyleBackColor = True
         '
         'GroupBox25
         '
@@ -1926,7 +2102,6 @@ Partial Class Form1
         Me.GroupBox22.Controls.Add(Me.SelectGroundFloorFileButton)
         Me.GroupBox22.Controls.Add(Me.Label28)
         Me.GroupBox22.Controls.Add(Me.SelectMidHeightFileButton)
-        Me.GroupBox22.Controls.Add(Me.StartVisualizationButton)
         Me.GroupBox22.Controls.Add(Me.Label33)
         Me.GroupBox22.Controls.Add(Me.SelectRoofDeckFileButton)
         Me.GroupBox22.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1934,10 +2109,10 @@ Partial Class Form1
         Me.GroupBox22.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox22.Name = "GroupBox22"
         Me.GroupBox22.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox22.Size = New System.Drawing.Size(197, 458)
+        Me.GroupBox22.Size = New System.Drawing.Size(197, 371)
         Me.GroupBox22.TabIndex = 10
         Me.GroupBox22.TabStop = False
-        Me.GroupBox22.Text = "File Parameters"
+        Me.GroupBox22.Text = "Motion Event Files"
         '
         'SelectGroundFloorTextBox
         '
@@ -2009,16 +2184,6 @@ Partial Class Form1
         Me.SelectMidHeightFileButton.TabIndex = 28
         Me.SelectMidHeightFileButton.UseVisualStyleBackColor = False
         '
-        'StartVisualizationButton
-        '
-        Me.StartVisualizationButton.Font = New System.Drawing.Font("Malgun Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StartVisualizationButton.Location = New System.Drawing.Point(25, 403)
-        Me.StartVisualizationButton.Name = "StartVisualizationButton"
-        Me.StartVisualizationButton.Size = New System.Drawing.Size(127, 37)
-        Me.StartVisualizationButton.TabIndex = 26
-        Me.StartVisualizationButton.Text = "Start"
-        Me.StartVisualizationButton.UseVisualStyleBackColor = True
-        '
         'Label33
         '
         Me.Label33.AutoSize = True
@@ -2056,106 +2221,9 @@ Partial Class Form1
         '
         'VisualizationTimer
         '
-        Me.VisualizationTimer.Interval = 10
         '
         'UpdateTimer
         '
-        '
-        'DataGridViewTextBoxColumn17
-        '
-        Me.DataGridViewTextBoxColumn17.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
-        Me.DataGridViewTextBoxColumn17.ReadOnly = True
-        Me.DataGridViewTextBoxColumn17.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn17.Width = 90
-        '
-        'DataGridViewTextBoxColumn18
-        '
-        Me.DataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn18.HeaderText = "Vel [mm/s]"
-        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
-        Me.DataGridViewTextBoxColumn18.ReadOnly = True
-        Me.DataGridViewTextBoxColumn18.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn1.Width = 90
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Disp [mm]"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        Me.DataGridViewTextBoxColumn7.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn7.Width = 90
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn8.HeaderText = "Vel [mm/s]"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
-        Me.DataGridViewTextBoxColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn5.Width = 90
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Disp [mm]"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'DataGridViewTextBoxColumn13
-        '
-        Me.DataGridViewTextBoxColumn13.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
-        Me.DataGridViewTextBoxColumn13.ReadOnly = True
-        Me.DataGridViewTextBoxColumn13.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn13.Width = 90
-        '
-        'DataGridViewTextBoxColumn14
-        '
-        Me.DataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn14.HeaderText = "Vel [mm/s]"
-        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
-        Me.DataGridViewTextBoxColumn14.ReadOnly = True
-        Me.DataGridViewTextBoxColumn14.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
-        'DataGridViewTextBoxColumn11
-        '
-        Me.DataGridViewTextBoxColumn11.HeaderText = "Time [s]"
-        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
-        Me.DataGridViewTextBoxColumn11.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridViewTextBoxColumn11.Width = 90
-        '
-        'DataGridViewTextBoxColumn12
-        '
-        Me.DataGridViewTextBoxColumn12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn12.HeaderText = "Disp [mm]"
-        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
-        Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        Me.DataGridViewTextBoxColumn12.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'Form1
         '
@@ -2232,6 +2300,10 @@ Partial Class Form1
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.VisualizationTabPage.ResumeLayout(False)
+        Me.GroupBox27.ResumeLayout(False)
+        Me.GroupBox27.PerformLayout()
+        CType(Me.AxisScalingTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox26.ResumeLayout(False)
         Me.GroupBox25.ResumeLayout(False)
         CType(Me.PlanViewPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox24.ResumeLayout(False)
@@ -2434,4 +2506,9 @@ Partial Class Form1
     Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn13 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn14 As DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox26 As GroupBox
+    Friend WithEvents GroupBox27 As GroupBox
+    Friend WithEvents EndVisualizationButton As Button
+    Friend WithEvents AxisScalingTrackBar As TrackBar
+    Friend WithEvents AxisScalingLabel As Label
 End Class
