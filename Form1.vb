@@ -40,6 +40,8 @@ Public Class Form1
     Private ySeries3 As LineSeries
     Private zSeries3 As LineSeries
 
+    Private g_to_ms2 = 9.80665
+
     ' This method handles the form load event
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Populate COM ports
@@ -237,7 +239,7 @@ Public Class Form1
 
     Private MaxPoints As Integer = 400  ' Maximum number of data points to display
     Private Sub ProcessData(data As String, plotView As PlotView, floor As Integer, ByRef triggeredFilePath As String, ByRef isTriggered As Boolean, ByRef triggerStartTime As DateTime, ByRef timeAfter20 As Double)
-        Dim g_to_ms2 = 9.80665
+
         If isStarted Then
             Dim parts() As String = data.Split(" "c)
             If parts.Length = 4 Then
@@ -247,7 +249,9 @@ Public Class Form1
                 Dim z As Double
 
                 If Double.TryParse(parts(0), time) AndAlso Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
-
+                    x = x * g_to_ms2
+                    y = y * g_to_ms2
+                    z = z * g_to_ms2
 
                     'Dim currentData As String = $"{timeAfter20.ToString("0.0000")} {x.ToString("0.0000")} {y.ToString("0.0000")} {z.ToString("0.0000")}"
                     Dim currentData As String = $"{timeAfter20.ToString("0.0000")}{vbTab}{x.ToString("0.0000")}{vbTab}{y.ToString("0.0000")}{vbTab}{z.ToString("0.0000")}"
@@ -445,117 +449,7 @@ Public Class Form1
         End Try
     End Sub
 
-    'Private Sub CorrectNetAcceleration(filePath As String)
-    '    Try
-    '        ''First, correct small values
-    '        'CorrectSmallValues(filePath)
-
-    '        ''Low-pass filter
-    '        'ApplyLowPassFilter(filePath)
-
-    '        ' Read all lines from the file
-    '        Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
-
-    '        ' Separate metadata and data
-    '        Dim metadataLines As List(Of String) = lines.Take(6).ToList()
-    '        Dim dataLines As List(Of String) = lines.Skip(6).ToList()
-
-    '        ' Find the index of the last instance where abs(x), abs(y), or abs(z) exceeds 0.05
-    '        Dim lastIndex As Integer = dataLines.Count - 1
-    '        For i As Integer = dataLines.Count - 1 To 0 Step -1
-    '            Dim parts() As String = dataLines(i).Split(vbTab)
-    '            If parts.Length = 4 Then
-    '                Dim x, y, z As Double
-    '                If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
-    '                    If Math.Abs(x) >= 0.05 OrElse Math.Abs(y) >= 0.05 OrElse Math.Abs(z) >= 0.05 Then
-    '                        lastIndex = i
-    '                        Exit For
-    '                    End If
-    '                End If
-    '            End If
-    '        Next
-
-    '        '' Skip the first 2001 samples after the metadata and consider samples only before lastIndex
-    '        'Dim samplesToAdjust As List(Of String) = dataLines.Skip(2001).Take(lastIndex - 2001 + 1).ToList()
-    '        ' Skip the first 501 samples after the metadata and consider samples only before lastIndex
-    '        Dim samplesToAdjust As List(Of String) = dataLines.Skip(501).Take(lastIndex - 501 + 1).ToList()
-    '        Dim remainingSamples As List(Of String) = dataLines.Skip(lastIndex + 1).ToList()
-
-    '        ' Lists to hold x, y, z values for mean calculation
-    '        Dim xValues As New List(Of Double)()
-    '        Dim yValues As New List(Of Double)()
-    '        Dim zValues As New List(Of Double)()
-
-    '        ' Read values from the file
-    '        For Each line As String In samplesToAdjust
-    '            Dim parts() As String = line.Split(vbTab)
-    '            If parts.Length = 4 Then
-    '                Dim x, y, z As Double
-    '                If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
-    '                    xValues.Add(x)
-    '                    yValues.Add(y)
-    '                    zValues.Add(z)
-    '                End If
-    '            End If
-    '        Next
-
-    '        ' Calculate net acceleration
-    '        Dim netX As Double = xValues.Sum()
-    '        Dim netY As Double = yValues.Sum()
-    '        Dim netZ As Double = zValues.Sum()
-
-    '        ' Calculate adjustments
-    '        Dim adjustmentX As Double = netX / samplesToAdjust.Count
-    '        Dim adjustmentY As Double = netY / samplesToAdjust.Count
-    '        Dim adjustmentZ As Double = netZ / samplesToAdjust.Count
-
-    '        ' Apply adjustments to zero net acceleration and set small values to zero
-    '        For i As Integer = 0 To samplesToAdjust.Count - 1
-    '            Dim parts() As String = samplesToAdjust(i).Split(vbTab)
-    '            If parts.Length = 4 Then
-    '                Dim time As Double = Double.Parse(parts(0))
-    '                Dim x As Double = Double.Parse(parts(1)) - adjustmentX
-    '                Dim y As Double = Double.Parse(parts(2)) - adjustmentY
-    '                Dim z As Double = Double.Parse(parts(3)) - adjustmentZ
-
-    '                samplesToAdjust(i) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
-    '            End If
-    '        Next
-
-    '        ' Set small values in remainingSamples to zero
-    '        For i As Integer = 0 To remainingSamples.Count - 1
-    '            Dim parts() As String = remainingSamples(i).Split(vbTab)
-    '            If parts.Length = 4 Then
-    '                Dim time As Double = Double.Parse(parts(0))
-    '                Dim x As Double = Double.Parse(parts(1))
-    '                Dim y As Double = Double.Parse(parts(2))
-    '                Dim z As Double = Double.Parse(parts(3))
-
-    '                If Math.Abs(x) <= 0.03 Then x = 0
-    '                If Math.Abs(y) <= 0.03 Then y = 0
-    '                If Math.Abs(z) <= 0.03 Then z = 0
-
-    '                remainingSamples(i) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
-    '            End If
-    '        Next
-
-    '        ' Combine metadata, first 2001 samples, adjusted samples, and remaining samples
-    '        Dim finalLines As New List(Of String)(metadataLines)
-    '        'finalLines.AddRange(dataLines.Take(2001))
-    '        finalLines.AddRange(dataLines.Take(501))
-    '        finalLines.AddRange(samplesToAdjust)
-    '        finalLines.AddRange(remainingSamples)
-
-    '        ' Write the adjusted data back to the file
-    '        File.WriteAllLines(filePath, finalLines)
-
-    '    Catch ex As Exception
-    '        MessageBox.Show("Error processing file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-    '    End Try
-    'End Sub
-
     Private Sub CorrectNetAcceleration(filePath As String)
-        Dim g_to_ms2 = 9.80665
         Try
             ' Read all lines from the file
             Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
@@ -619,46 +513,49 @@ Public Class Form1
                     Dim x As Double = Double.Parse(parts(1)) - adjustmentX
                     Dim y As Double = Double.Parse(parts(2)) - adjustmentY
                     Dim z As Double = Double.Parse(parts(3)) - adjustmentZ
+                    'Dim x As Double = Double.Parse(parts(1))
+                    'Dim y As Double = Double.Parse(parts(2))
+                    'Dim z As Double = Double.Parse(parts(3))
 
                     samplesToAdjust(i) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
                 End If
             Next
 
-            ' Reread values after initial adjustments
-            xValues.Clear()
-            yValues.Clear()
-            zValues.Clear()
+            '' Reread values after initial adjustments
+            'xValues.Clear()
+            'yValues.Clear()
+            'zValues.Clear()
 
-            For Each line As String In samplesToAdjust
-                Dim parts() As String = line.Split(vbTab)
-                If parts.Length = 4 Then
-                    Dim x, y, z As Double
-                    If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
-                        xValues.Add(x)
-                        yValues.Add(y)
-                        zValues.Add(z)
-                    End If
-                End If
-            Next
+            'For Each line As String In samplesToAdjust
+            '    Dim parts() As String = line.Split(vbTab)
+            '    If parts.Length = 4 Then
+            '        Dim x, y, z As Double
+            '        If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
+            '            xValues.Add(x)
+            '            yValues.Add(y)
+            '            zValues.Add(z)
+            '        End If
+            '    End If
+            'Next
 
-            ' Calculate remaining net acceleration
-            netX = xValues.Sum()
-            netY = yValues.Sum()
-            netZ = zValues.Sum()
+            '' Calculate remaining net acceleration
+            'netX = xValues.Sum()
+            'netY = yValues.Sum()
+            'netZ = zValues.Sum()
 
-            ' Adjust the last value to make net acceleration exactly zero
-            If samplesToAdjust.Count > 0 Then
-                Dim lastIndexAdjust As Integer = samplesToAdjust.Count - 1
-                Dim lastParts() As String = samplesToAdjust(lastIndexAdjust).Split(vbTab)
-                If lastParts.Length = 4 Then
-                    Dim time As Double = Double.Parse(lastParts(0))
-                    Dim x As Double = Double.Parse(lastParts(1)) - (netX)
-                    Dim y As Double = Double.Parse(lastParts(2)) - (netY)
-                    Dim z As Double = Double.Parse(lastParts(3)) - (netZ)
+            '' Adjust the last value to make net acceleration exactly zero
+            'If samplesToAdjust.Count > 0 Then
+            '    Dim lastIndexAdjust As Integer = samplesToAdjust.Count - 1
+            '    Dim lastParts() As String = samplesToAdjust(lastIndexAdjust).Split(vbTab)
+            '    If lastParts.Length = 4 Then
+            '        Dim time As Double = Double.Parse(lastParts(0))
+            '        Dim x As Double = Double.Parse(lastParts(1)) - (netX)
+            '        Dim y As Double = Double.Parse(lastParts(2)) - (netY)
+            '        Dim z As Double = Double.Parse(lastParts(3)) - (netZ)
 
-                    samplesToAdjust(lastIndexAdjust) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
-                End If
-            End If
+            '        samplesToAdjust(lastIndexAdjust) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
+            '    End If
+            'End If
 
             ' Set small values in remainingSamples to zero
             For i As Integer = 0 To remainingSamples.Count - 1
@@ -703,6 +600,11 @@ Public Class Form1
                                  PlotView1 As OxyPlot.WindowsForms.PlotView)
         ' Update plot on the UI thread
         Me.Invoke(Sub()
+                      x = x * g_to_ms2
+                      y = y * g_to_ms2
+                      z = z * g_to_ms2
+
+
                       ' Add new data points
                       xSeries.Points.Add(New DataPoint(time, x))
                       ySeries.Points.Add(New DataPoint(time, y))
@@ -1205,13 +1107,13 @@ Public Class Form1
         YAccelMaxTextBox.Text = $"{maxAccelY.ToString("F5")}m/s^2 @ {maxAccelYTime.ToString("F2")}s"
         ZAccelMaxTextBox.Text = $"{maxAccelZ.ToString("F5")}m/s^2 @ {maxAccelZTime.ToString("F2")}s"
 
-        XVelMaxTextBox.Text = $"{maxVelX.ToString("F5")}m/s @ {maxVelXTime.ToString("F2")}s"
-        YVelMaxTextBox.Text = $"{maxVelY.ToString("F5")}m/s @ {maxVelYTime.ToString("F2")}s"
-        ZVelMaxTextBox.Text = $"{maxVelZ.ToString("F5")}m/s @ {maxVelZTime.ToString("F2")}s"
+        XVelMaxTextBox.Text = $"{maxVelX.ToString("F5")}mm/s @ {maxVelXTime.ToString("F2")}s"
+        YVelMaxTextBox.Text = $"{maxVelY.ToString("F5")}mm/s @ {maxVelYTime.ToString("F2")}s"
+        ZVelMaxTextBox.Text = $"{maxVelZ.ToString("F5")}mm/s @ {maxVelZTime.ToString("F2")}s"
 
-        XDispMaxTextBox.Text = $"{maxDispX.ToString("F5")}m @ {maxDispXTime.ToString("F2")}s"
-        YDispMaxTextBox.Text = $"{maxDispY.ToString("F5")}m @ {maxDispYTime.ToString("F2")}s"
-        ZDispMaxTextBox.Text = $"{maxDispZ.ToString("F5")}m @ {maxDispZTime.ToString("F2")}s"
+        XDispMaxTextBox.Text = $"{maxDispX.ToString("F5")}mm @ {maxDispXTime.ToString("F2")}s"
+        YDispMaxTextBox.Text = $"{maxDispY.ToString("F5")}mm @ {maxDispYTime.ToString("F2")}s"
+        ZDispMaxTextBox.Text = $"{maxDispZ.ToString("F5")}mm @ {maxDispZTime.ToString("F2")}s"
 
         ' Add the series to their respective PlotModels
         plotModelXAccel.Series.Add(seriesXAccel)
@@ -1255,7 +1157,7 @@ Public Class Form1
                 Using writer As New StreamWriter(filePath)
                     ' Write headers
                     'writer.WriteLine("Time[s]  AccelX[m/s²]  VelX[m/s]  DispX[m]  AccelY[m/s²]  VelY[m/s]  DispY[m]  AccelZ[m/s²]  VelZ[m/s]  DispZ[m]")
-                    writer.WriteLine("Time[s]" & vbTab & "AccelX[m/s²]" & vbTab & "VelX[m/s]" & vbTab & "DispX[m]" & vbTab & "AccelY[m/s²]" & vbTab & "VelY[m/s]" & vbTab & "DispY[m]" & vbTab & "AccelZ[m/s²]" & vbTab & "VelZ[m/s]" & vbTab & "DispZ[m]")
+                    writer.WriteLine("Time[s]" & vbTab & "AccelX[m/s²]" & vbTab & "VelX[mm/s]" & vbTab & "DispX[mm]" & vbTab & "AccelY[m/s²]" & vbTab & "VelY[mm/s]" & vbTab & "DispY[mm]" & vbTab & "AccelZ[m/s²]" & vbTab & "VelZ[mm/s]" & vbTab & "DispZ[mm]")
 
 
                     ' Write data from DataGridViews
