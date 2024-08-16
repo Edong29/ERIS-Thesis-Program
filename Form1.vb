@@ -199,21 +199,21 @@ Public Class Form1
         Dim sp As SerialPort = CType(sender, SerialPort)
         Dim indata As String = sp.ReadLine()
         roofDeckArduinoData = indata
-        ProcessData(indata, RoofDeckPlotView, 3, triggeredFilePath3, isTriggered3, triggerStartTime3, timeAfter20_3)
+        ProcessData(indata, RoofDeckPlotView, 3, triggeredFilePath3, isTriggered3, triggerStartTime3, 0)
     End Sub
 
     Private Sub SerialPort2_DataReceived(sender As Object, e As SerialDataReceivedEventArgs)
         Dim sp As SerialPort = CType(sender, SerialPort)
         Dim indata As String = sp.ReadLine()
         midHeightArduinoData = indata
-        ProcessData(indata, MidHeightPlotView, 2, triggeredFilePath2, isTriggered2, triggerStartTime2, timeAfter20_2)
+        ProcessData(indata, MidHeightPlotView, 2, triggeredFilePath2, isTriggered2, triggerStartTime2, 0)
     End Sub
 
     Private Sub SerialPort3_DataReceived(sender As Object, e As SerialDataReceivedEventArgs)
         Dim sp As SerialPort = CType(sender, SerialPort)
         Dim indata As String = sp.ReadLine()
         groundFloorArduinoData = indata
-        ProcessData(indata, GroundFloorPlotView, 1, triggeredFilePath1, isTriggered1, triggerStartTime1, timeAfter20_1)
+        ProcessData(indata, GroundFloorPlotView, 1, triggeredFilePath1, isTriggered1, triggerStartTime1, 0)
     End Sub
 
     ' Method to process incoming data
@@ -230,15 +230,11 @@ Public Class Form1
     Private triggerStartTime2 As DateTime
     Private triggerStartTime3 As DateTime
 
-    'Private timeAfter20_1 As Double = 20.01
-    'Private timeAfter20_2 As Double = 20.01
-    'Private timeAfter20_3 As Double = 20.01
-    Private timeAfter20_1 As Double = 5.01
-    Private timeAfter20_2 As Double = 5.01
-    Private timeAfter20_3 As Double = 5.01
-
     Private MaxPoints As Integer = 400  ' Maximum number of data points to display
     Private Sub ProcessData(data As String, plotView As PlotView, floor As Integer, ByRef triggeredFilePath As String, ByRef isTriggered As Boolean, ByRef triggerStartTime As DateTime, ByRef timeAfter20 As Double)
+
+        ' Queue to store the first 20 seconds of data
+        Static reservedData As New Queue(Of String)
 
         If isStarted Then
             Dim parts() As String = data.Split(" "c)
@@ -253,8 +249,14 @@ Public Class Form1
                     y = y * g_to_ms2
                     z = z * g_to_ms2
 
-                    'Dim currentData As String = $"{timeAfter20.ToString("0.0000")} {x.ToString("0.0000")} {y.ToString("0.0000")} {z.ToString("0.0000")}"
                     Dim currentData As String = $"{timeAfter20.ToString("0.0000")}{vbTab}{x.ToString("0.0000")}{vbTab}{y.ToString("0.0000")}{vbTab}{z.ToString("0.0000")}"
+
+                    ' Enqueue the current data to the reservedData queue
+                    reservedData.Enqueue(currentData)
+                    ' Ensure the queue only holds the last 20 seconds of data
+                    If reservedData.Count > 2000 Then ' Assuming data is added every 0.01 seconds
+                        reservedData.Dequeue()
+                    End If
 
                     Dim sensorName As String = ""
 
@@ -289,44 +291,16 @@ Public Class Form1
                                 writer.WriteLine("Frequency: 100hz")
                                 writer.WriteLine("time[s]" & vbTab & "AccelX[m/s^2]" & vbTab & "AccelY[m/s^2]" & vbTab & "AccelZ[m/s^2]")
 
+                                ' Write reserved data to the triggered file
+                                While reservedData.Count > 0
+                                    writer.WriteLine(reservedData.Dequeue())
+                                End While
                             End Using
 
                         Catch ex As Exception
                             MessageBox.Show("Error recording file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End Try
 
-                        ''add the first 20sec data
-                        'Dim first20SecDataFilePath As String = Directory.GetCurrentDirectory() & "\First20SecData.txt"
-                        'Try
-                        '    ' Read all lines from the file into the list
-                        '    Dim first20SecDataList As New List(Of String)(File.ReadAllLines(first20SecDataFilePath))
-
-                        '    Using writer As StreamWriter = New StreamWriter(triggeredFilePath, True)
-                        '        For Each datapoint As String In first20SecDataList
-                        '            writer.WriteLine(datapoint)
-                        '        Next
-                        '    End Using
-
-                        'Catch ex As Exception
-                        '    MessageBox.Show("Error recording file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        'End Try
-                        ' Add the first 20sec data
-                        Dim first20SecDataFilePath As String = Directory.GetCurrentDirectory() & "\First20SecData.txt"
-                        Dim maxRowsToRead As Integer = 501
-
-                        Try
-                            ' Read all lines from the file into the list
-                            Dim first20SecDataList As New List(Of String)(File.ReadAllLines(first20SecDataFilePath))
-
-                            Using writer As StreamWriter = New StreamWriter(triggeredFilePath, True)
-                                For i As Integer = 0 To Math.Min(maxRowsToRead - 1, first20SecDataList.Count - 1)
-                                    writer.WriteLine(first20SecDataList(i))
-                                Next
-                            End Using
-
-                        Catch ex As Exception
-                            MessageBox.Show("Error recording file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        End Try
                     End If
 
                     ' Check if triggered recording is active
@@ -347,6 +321,9 @@ Public Class Form1
                         isTriggered = False
                         timeAfter20 = 20.01
 
+                        'Update the time column of the file
+                        UpdateTimeColumnInTriggeredFile(triggeredFilePath)
+
                         'MessageBox.Show("Triggered recording stopped.", "Triggered Recording", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                         ' Stop triggered recording and update status
@@ -355,15 +332,52 @@ Public Class Form1
                         ' Update the triggered data count
                         UpdateTriggeredDataCount()
 
-                        ' Correct net acceleration
-                        CorrectNetAcceleration(triggeredFilePath)
-
                         triggeredFilePath = ""
                     End If
                 End If
             End If
         End If
     End Sub
+
+    Private Sub UpdateTimeColumnInTriggeredFile(ByVal filePath As String)
+        Try
+            ' Read all lines from the file
+            Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
+
+            ' Skip the metadata (assuming the first 5 lines are metadata)
+            Dim metadata As List(Of String) = lines.Take(5).ToList()
+            Dim dataLines As List(Of String) = lines.Skip(5).ToList()
+
+            ' Initialize a counter for the time
+            Dim currentTime As Double = 0.0
+
+            ' Update each line with the new time
+            For i As Integer = 0 To dataLines.Count - 1
+                Dim parts() As String = dataLines(i).Split(New Char() {vbTab}, StringSplitOptions.RemoveEmptyEntries)
+                If parts.Length >= 4 Then
+                    ' Update the time column
+                    parts(0) = currentTime.ToString("0.00")
+
+                    ' Reconstruct the line
+                    dataLines(i) = String.Join(vbTab, parts)
+
+                    ' Increment the time by 0.01 seconds
+                    currentTime += 0.01
+                End If
+            Next
+
+            ' Combine the metadata and updated data lines
+            lines = metadata.Concat(dataLines).ToList()
+
+            ' Write the updated lines back to the file
+            File.WriteAllLines(filePath, lines)
+
+        Catch ex As Exception
+            MessageBox.Show("Error updating time column in file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 
     Private Sub CorrectNetAcceleration(filePath As String)
         Try
@@ -907,8 +921,8 @@ Public Class Form1
 
         Dim time As Double = 0
         Try
-            ' Skip the first 6 lines of metadata
-            For i As Integer = 6 To lines.Length - 2 ' n-1 because we need i+1 data
+            ' Skip the first 5 lines of metadata
+            For i As Integer = 5 To lines.Length - 2 ' n-1 because we need i+1 data
                 Dim parts() As String = lines(i).Split(vbTab)
                 'Dim time As Double = Double.Parse(parts(0))
                 time += 0.01
