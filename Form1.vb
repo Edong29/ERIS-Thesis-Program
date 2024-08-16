@@ -365,90 +365,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub CorrectSmallValues(filePath As String)
-        Try
-            ' Read all lines from the file
-            Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
-
-            ' Separate metadata and data
-            Dim metadataLines As List(Of String) = lines.Take(6).ToList()
-            Dim dataLines As List(Of String) = lines.Skip(6).ToList()
-
-            ' Process data to set small values to zero
-            For i As Integer = 0 To dataLines.Count - 1
-                Dim parts() As String = dataLines(i).Split(vbTab)
-                If parts.Length = 4 Then
-                    Dim time As Double = Double.Parse(parts(0))
-                    Dim x As Double = Double.Parse(parts(1))
-                    Dim y As Double = Double.Parse(parts(2))
-                    Dim z As Double = Double.Parse(parts(3))
-
-                    ' Set values close to zero to zero
-                    If Math.Abs(x) <= 0.02 Then x = 0
-                    If Math.Abs(y) <= 0.02 Then y = 0
-                    If Math.Abs(z) <= 0.02 Then z = 0
-
-                    dataLines(i) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
-                End If
-            Next
-
-            ' Combine metadata and processed data
-            Dim finalLines As New List(Of String)(metadataLines)
-            finalLines.AddRange(dataLines)
-
-            ' Write the processed data back to the file
-            File.WriteAllLines(filePath, finalLines)
-
-        Catch ex As Exception
-            MessageBox.Show("Error processing file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Private Sub ApplyLowPassFilter(filePath As String)
-        Try
-            ' Read all lines from the file
-            Dim lines As List(Of String) = File.ReadAllLines(filePath).ToList()
-
-            ' Separate metadata and data
-            Dim metadataLines As List(Of String) = lines.Take(6).ToList()
-            Dim dataLines As List(Of String) = lines.Skip(6).ToList()
-
-            ' Parameters for low-pass filter
-            Dim alpha As Double = 0.1 ' Smoothing factor (0 < alpha < 1)
-            Dim filteredX As Double = 0.0
-            Dim filteredY As Double = 0.0
-            Dim filteredZ As Double = 0.0
-
-            ' Process data with low-pass filter
-            For i As Integer = 0 To dataLines.Count - 1
-                Dim parts() As String = dataLines(i).Split(vbTab)
-                If parts.Length = 4 Then
-                    Dim time As Double = Double.Parse(parts(0))
-                    Dim x As Double = Double.Parse(parts(1))
-                    Dim y As Double = Double.Parse(parts(2))
-                    Dim z As Double = Double.Parse(parts(3))
-
-                    ' Apply low-pass filter
-                    filteredX = alpha * x + (1 - alpha) * filteredX
-                    filteredY = alpha * y + (1 - alpha) * filteredY
-                    filteredZ = alpha * z + (1 - alpha) * filteredZ
-
-                    dataLines(i) = $"{time.ToString("0.0000")}{vbTab}{filteredX}{vbTab}{filteredY}{vbTab}{filteredZ}"
-                End If
-            Next
-
-            ' Combine metadata and processed data
-            Dim finalLines As New List(Of String)(metadataLines)
-            finalLines.AddRange(dataLines)
-
-            ' Write the processed data back to the file
-            File.WriteAllLines(filePath, finalLines)
-
-        Catch ex As Exception
-            MessageBox.Show("Error processing file: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Private Sub CorrectNetAcceleration(filePath As String)
         Try
             ' Read all lines from the file
@@ -521,41 +437,41 @@ Public Class Form1
                 End If
             Next
 
-            '' Reread values after initial adjustments
-            'xValues.Clear()
-            'yValues.Clear()
-            'zValues.Clear()
+            ' Reread values after initial adjustments
+            xValues.Clear()
+            yValues.Clear()
+            zValues.Clear()
 
-            'For Each line As String In samplesToAdjust
-            '    Dim parts() As String = line.Split(vbTab)
-            '    If parts.Length = 4 Then
-            '        Dim x, y, z As Double
-            '        If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
-            '            xValues.Add(x)
-            '            yValues.Add(y)
-            '            zValues.Add(z)
-            '        End If
-            '    End If
-            'Next
+            For Each line As String In samplesToAdjust
+                Dim parts() As String = line.Split(vbTab)
+                If parts.Length = 4 Then
+                    Dim x, y, z As Double
+                    If Double.TryParse(parts(1), x) AndAlso Double.TryParse(parts(2), y) AndAlso Double.TryParse(parts(3), z) Then
+                        xValues.Add(x)
+                        yValues.Add(y)
+                        zValues.Add(z)
+                    End If
+                End If
+            Next
 
-            '' Calculate remaining net acceleration
-            'netX = xValues.Sum()
-            'netY = yValues.Sum()
-            'netZ = zValues.Sum()
+            ' Calculate remaining net acceleration
+            netX = xValues.Sum()
+            netY = yValues.Sum()
+            netZ = zValues.Sum()
 
-            '' Adjust the last value to make net acceleration exactly zero
-            'If samplesToAdjust.Count > 0 Then
-            '    Dim lastIndexAdjust As Integer = samplesToAdjust.Count - 1
-            '    Dim lastParts() As String = samplesToAdjust(lastIndexAdjust).Split(vbTab)
-            '    If lastParts.Length = 4 Then
-            '        Dim time As Double = Double.Parse(lastParts(0))
-            '        Dim x As Double = Double.Parse(lastParts(1)) - (netX)
-            '        Dim y As Double = Double.Parse(lastParts(2)) - (netY)
-            '        Dim z As Double = Double.Parse(lastParts(3)) - (netZ)
+            ' Adjust the last value to make net acceleration exactly zero
+            If samplesToAdjust.Count > 0 Then
+                Dim lastIndexAdjust As Integer = samplesToAdjust.Count - 1
+                Dim lastParts() As String = samplesToAdjust(lastIndexAdjust).Split(vbTab)
+                If lastParts.Length = 4 Then
+                    Dim time As Double = Double.Parse(lastParts(0))
+                    Dim x As Double = Double.Parse(lastParts(1)) - (netX)
+                    Dim y As Double = Double.Parse(lastParts(2)) - (netY)
+                    Dim z As Double = Double.Parse(lastParts(3)) - (netZ)
 
-            '        samplesToAdjust(lastIndexAdjust) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
-            '    End If
-            'End If
+                    samplesToAdjust(lastIndexAdjust) = $"{time.ToString("0.0000")}{vbTab}{x}{vbTab}{y}{vbTab}{z}"
+                End If
+            End If
 
             ' Set small values in remainingSamples to zero
             For i As Integer = 0 To remainingSamples.Count - 1
@@ -588,12 +504,6 @@ Public Class Form1
         End Try
     End Sub
 
-
-
-
-
-
-
     Private Sub UpdatePlotOnUIThread(time As Double, x As Double, y As Double, z As Double,
                                  xSeries As LineSeries, ySeries As LineSeries, zSeries As LineSeries,
                                  timeSeries As LineSeries, MaxPoints As Integer,
@@ -622,7 +532,6 @@ Public Class Form1
                       PlotView1.InvalidatePlot(True)
                   End Sub)
     End Sub
-
 
 
     ' This method handles the Connect button click event
