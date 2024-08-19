@@ -863,6 +863,61 @@ Public Class Form1
         End If
     End Sub
 
+
+    Function BaselineCorrectionPolynomialFit(ByVal filePath As String, ByVal order As Integer) As List(Of String)
+        Dim lines As List(Of String) = IO.File.ReadAllLines(filePath).ToList()
+        Dim correctedData As New List(Of String)
+
+        ' Skipping the first 5 lines (metadata)
+        Dim dataLines As List(Of String) = lines.Skip(5).ToList()
+
+        Dim n As Integer = dataLines.Count
+        Dim tValues As New List(Of Double)
+        Dim xValues As New List(Of Double)
+        Dim yValues As New List(Of Double)
+        Dim zValues As New List(Of Double)
+
+        ' Collect time and acceleration values
+        For Each line As String In dataLines
+            Dim parts As String() = line.Split(vbTab)
+            tValues.Add(Convert.ToDouble(parts(0)))
+            xValues.Add(Convert.ToDouble(parts(1)))
+            yValues.Add(Convert.ToDouble(parts(2)))
+            zValues.Add(Convert.ToDouble(parts(3)))
+        Next
+
+        ' Fit polynomials to the x, y, z data and get coefficients
+        Dim coeffsX As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), xValues.ToArray(), order)
+        Dim coeffsY As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), yValues.ToArray(), order)
+        Dim coeffsZ As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), zValues.ToArray(), order)
+
+        ' Subtract polynomial fit from original data
+        For i As Integer = 0 To n - 1
+            Dim t As Double = tValues(i)
+
+            ' Evaluate polynomial at time t
+            Dim xPolyValue As Double = 0
+            Dim yPolyValue As Double = 0
+            Dim zPolyValue As Double = 0
+
+            For j As Integer = 0 To order
+                xPolyValue += coeffsX(j) * Math.Pow(t, j)
+                yPolyValue += coeffsY(j) * Math.Pow(t, j)
+                zPolyValue += coeffsZ(j) * Math.Pow(t, j)
+            Next
+
+            Dim xCorrected As Double = xValues(i) - xPolyValue
+            Dim yCorrected As Double = yValues(i) - yPolyValue
+            Dim zCorrected As Double = zValues(i) - zPolyValue
+            correctedData.Add($"{t}{vbTab}{xCorrected}{vbTab}{yCorrected}{vbTab}{zCorrected}")
+        Next
+
+        Return correctedData
+    End Function
+
+
+
+
     Private Sub LoadDataAndPlot(filePath As String)
         ' Create PlotModels for X, Y, and Z accelerations, velocities, and displacements
         Dim plotModelXAccel As New PlotModel With {.Title = "X Acceleration vs Time"}
@@ -912,7 +967,8 @@ Public Class Form1
         Dim maxDispXTime, maxDispYTime, maxDispZTime As Double
 
         ' Read the file and parse data
-        Dim lines() As String = File.ReadAllLines(filePath)
+        'Dim lines() As String = File.ReadAllLines(filePath)
+        Dim lines() As String = BaselineCorrectionPolynomialFit(filePath, 8).ToArray()
         Dim deltaTime As Double = 0.01 ' Assuming a fixed time interval (e.g., 0.01 seconds, you can modify as needed)
 
         ' Variables to hold the running sums for velocity and displacement
