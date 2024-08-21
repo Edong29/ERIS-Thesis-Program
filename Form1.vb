@@ -867,6 +867,7 @@ Public Class Form1
     Function BaselineCorrectionPolynomialFit(ByVal filePath As String, ByVal order As Integer) As List(Of String)
         Dim lines As List(Of String) = IO.File.ReadAllLines(filePath).ToList()
         Dim correctedData As New List(Of String)
+        Dim threshold As Double = 0.05 * g_to_ms2 ' Threshold value in m/s²
 
         ' Skipping the first 5 lines (metadata)
         Dim dataLines As List(Of String) = lines.Skip(5).ToList()
@@ -886,35 +887,58 @@ Public Class Form1
             zValues.Add(Convert.ToDouble(parts(3)))
         Next
 
-        ' Fit polynomials to the x, y, z data and get coefficients
-        Dim coeffsX As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), xValues.ToArray(), order)
-        Dim coeffsY As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), yValues.ToArray(), order)
-        Dim coeffsZ As Double() = MathNet.Numerics.Fit.Polynomial(tValues.ToArray(), zValues.ToArray(), order)
+        ' Find the first and last instances where any acceleration component is >= threshold
+        Dim firstIndex As Integer = -1
+        Dim lastIndex As Integer = -1
 
-        ' Subtract polynomial fit from original data
+        For i As Integer = 0 To n - 1
+            If Math.Abs(xValues(i)) >= threshold OrElse Math.Abs(yValues(i)) >= threshold OrElse Math.Abs(zValues(i)) >= threshold Then
+                If firstIndex = -1 Then
+                    firstIndex = i
+                End If
+                lastIndex = i
+            End If
+        Next
+
+        ' If no values exceed the threshold, return the original data without modification
+        If firstIndex = -1 OrElse lastIndex = -1 Then
+            Return dataLines
+        End If
+
+        ' Fit polynomials to the x, y, z data within the selected range and get coefficients
+        Dim coeffsX As Double() = MathNet.Numerics.Fit.Polynomial(tValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), xValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), order)
+        Dim coeffsY As Double() = MathNet.Numerics.Fit.Polynomial(tValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), yValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), order)
+        Dim coeffsZ As Double() = MathNet.Numerics.Fit.Polynomial(tValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), zValues.Skip(firstIndex).Take(lastIndex - firstIndex + 1).ToArray(), order)
+
+        ' Apply baseline correction only to the data within the selected range
         For i As Integer = 0 To n - 1
             Dim t As Double = tValues(i)
 
-            ' Evaluate polynomial at time t
-            Dim xPolyValue As Double = 0
-            Dim yPolyValue As Double = 0
-            Dim zPolyValue As Double = 0
+            ' If within the range, apply correction
+            If i >= firstIndex And i <= lastIndex Then
+                ' Evaluate polynomial at time t
+                Dim xPolyValue As Double = 0
+                Dim yPolyValue As Double = 0
+                Dim zPolyValue As Double = 0
 
-            For j As Integer = 0 To order
-                xPolyValue += coeffsX(j) * Math.Pow(t, j)
-                yPolyValue += coeffsY(j) * Math.Pow(t, j)
-                zPolyValue += coeffsZ(j) * Math.Pow(t, j)
-            Next
+                For j As Integer = 0 To order
+                    xPolyValue += coeffsX(j) * Math.Pow(t, j)
+                    yPolyValue += coeffsY(j) * Math.Pow(t, j)
+                    zPolyValue += coeffsZ(j) * Math.Pow(t, j)
+                Next
 
-            Dim xCorrected As Double = xValues(i) - xPolyValue
-            Dim yCorrected As Double = yValues(i) - yPolyValue
-            Dim zCorrected As Double = zValues(i) - zPolyValue
-            correctedData.Add($"{t}{vbTab}{xCorrected}{vbTab}{yCorrected}{vbTab}{zCorrected}")
+                Dim xCorrected As Double = xValues(i) - xPolyValue
+                Dim yCorrected As Double = yValues(i) - yPolyValue
+                Dim zCorrected As Double = zValues(i) - zPolyValue
+                correctedData.Add($"{t}{vbTab}{xCorrected}{vbTab}{yCorrected}{vbTab}{zCorrected}")
+            Else
+                ' Outside the range, keep the original data
+                correctedData.Add($"{t}{vbTab}{xValues(i)}{vbTab}{yValues(i)}{vbTab}{zValues(i)}")
+            End If
         Next
 
         Return correctedData
     End Function
-
 
 
 
@@ -968,7 +992,7 @@ Public Class Form1
 
         ' Read the file and parse data
         'Dim lines() As String = File.ReadAllLines(filePath)
-        Dim lines() As String = BaselineCorrectionPolynomialFit(filePath, 8).ToArray()
+        Dim lines() As String = BaselineCorrectionPolynomialFit(filePath, 5).ToArray()
         Dim deltaTime As Double = 0.01 ' Assuming a fixed time interval (e.g., 0.01 seconds, you can modify as needed)
 
         ' Variables to hold the running sums for velocity and displacement
